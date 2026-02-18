@@ -38,7 +38,7 @@ const stats = [
   { value: '8+',  label: 'Years Experience'  },
   { value: '30+', label: 'Projects Completed' },
   { value: '15+', label: 'Clients Served'     },
-  { value: '5',   label: 'Industries Served'  },
+  { value: '4+',   label: 'Industries Served'  },
 ];
 
 const highlights = [
@@ -125,7 +125,7 @@ const About = () => {
               with expertise in translating complex business requirements into
               data-driven solutions. With a background in analytics and strategic
               planning, I help organisations across{' '}
-              <span style={{ color: '#F7E7CE', fontWeight: 600 }}>banking, insurance, and healthcare</span>{' '}
+              <span style={{ color: '#F7E7CE', fontWeight: 600 }}>Banking, Insurance, and Healthcare</span>{' '}
               unlock meaningful insights from their data.
             </p>
 
