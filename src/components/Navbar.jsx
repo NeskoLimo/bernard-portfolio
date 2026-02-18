@@ -3,8 +3,10 @@ import { useState, useEffect, useRef } from 'react';
 import Button from './Button';
 
 const navLinks = [
+  { label: 'Home',    href: '#Home'    },
   { label: 'About',    href: '#about'    },
   { label: 'Skills',   href: '#skills'   },
+  { label: 'Certifications',    href: '#certifications'    },
   { label: 'Projects', href: '#projects' },
   { label: 'Blog',     href: '#blog'     },
   { label: 'Contact',  href: '#contact'  },
