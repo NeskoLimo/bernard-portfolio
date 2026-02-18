@@ -4,30 +4,39 @@
 
 @layer base {
   :root {
-    --background: 15 23 42;      /* slate-900 */
+    --background: 2 6 23;        /* slate-950 */
     --foreground: 240 10 3.9;
   }
 
   body {
     @apply bg-slate-950 text-slate-100 min-h-screen antialiased;
+    background: linear-gradient(to bottom, #020617, #0f172a);
+  }
+
+  html {
+    scroll-behavior: smooth;
   }
 }
 
 @layer components {
   .btn {
-    @apply inline-flex items-center justify-center rounded-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950;
+    @apply inline-flex items-center justify-center rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 shadow-md hover:shadow-lg;
   }
 
   .btn-primary {
-    @apply bg-lime-main hover:bg-lime-hover text-white shadow-md hover:shadow-lg hover:scale-[1.02] px-6 py-3;
-  }
-
-  .btn-outline {
-    @apply border-2 border-lime-main text-lime-main hover:bg-lime-main/10 px-6 py-3;
+    @apply bg-lime-main hover:bg-lime-hover text-white focus:ring-lime-main;
   }
 
   .btn-gold {
-    @apply bg-gold hover:bg-gold-dark text-slate-950 font-semibold px-6 py-3 shadow-md hover:shadow-lg hover:scale-[1.02];
+    @apply bg-gold hover:bg-gold-dark text-slate-950 font-semibold shadow-gold-glow hover:shadow-gold-glow focus:ring-gold;
+  }
+
+  .nav-link {
+    @apply text-slate-300 hover:text-lime-main font-medium transition-colors duration-200;
+  }
+
+  .nav-active {
+    @apply text-lime-main font-semibold border-b-2 border-lime-main;
   }
 
   .section-container {
@@ -35,14 +44,14 @@
   }
 
   .heading-1 {
-    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center mb-6;
+    @apply text-5xl md:text-7xl font-bold tracking-tight text-white mb-6;
   }
 
   .heading-2 {
-    @apply text-3xl md:text-4xl font-semibold text-lime-main mb-10 text-center;
+    @apply text-3xl md:text-5xl font-semibold text-lime-main mb-10 text-center;
   }
 
   .card {
-    @apply bg-slate-900/60 backdrop-blur-sm border border-slate-800 rounded-xl p-6 md:p-8 shadow-lg hover:shadow-2xl hover:border-lime-main/50 transition-all duration-300;
+    @apply bg-slate-900/70 backdrop-blur-md border border-slate-800 rounded-xl p-6 md:p-8 shadow-lg hover:shadow-gold-glow hover:border-lime-main/50 transition-all duration-300;
   }
 }
