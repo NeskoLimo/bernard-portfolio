@@ -168,7 +168,7 @@ export default function Hero() {
 
         {/* Availability badge */}
         <div className="hero-badge" style={fade(0.1)}>
-          Available for New Opportunities
+          Ready & Available for New Opportunities
         </div>
 
         {/* Name */}
@@ -228,10 +228,10 @@ export default function Hero() {
           maxWidth: '600px', margin: 0,
         }}>
           Bridging business needs and technology solutions across{' '}
-          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>banking</span>,{' '}
-          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>insurance</span>, and{' '}
-          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>healthcare</span> —
-          transforming complex requirements into impactful, measurable outcomes.
+          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Banking</span>,{' '}
+          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Insurance</span>, and{' '}
+          <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Healthcare</span> —
+          Transforming complex requirements into impactful, measurable outcomes.
         </p>
 
         {/* Primary CTAs */}
@@ -271,8 +271,10 @@ export default function Hero() {
             {[
               {
                 label: 'LinkedIn', href: 'https://www.linkedin.com/in/bernard-limo-77937b138/',
-                bg: 'rgba(10,102,194,0.12)', border: 'rgba(10,102,194,0.3)', color: '#5badee',
-                hoverBg: 'rgba(10,102,194,0.22)',
+               bg: 'rgba(10, 102, 194, 0.10)',
+               border: 'rgba(10, 102, 194, 0.35)',
+               color: '#004182',  // LinkedIn darker blue
+               hoverBg: 'rgba(0, 65, 130, 0.18)',
               },
               {
                 label: 'Email Me', href: 'mailto:koneslimo@gmail.com',
