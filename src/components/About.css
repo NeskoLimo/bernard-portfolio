@@ -1,1 +1,234 @@
+/* ── About Section ───────────────────────────────────────────────
+   All color values reference CSS variables set in index.css.
+   Tailwind utilities handle spacing/layout; this file handles
+   component-specific styles that Tailwind can't express cleanly.
+─────────────────────────────────────────────────────────────── */
+
+/* ── Section wrapper ─────────────────────────────────────────── */
+.about {
+  background-color: var(--bg-surface);
+  position: relative;
+  overflow: hidden;
+}
+
+/* Faint diagonal texture */
+.about::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: repeating-linear-gradient(
+    135deg,
+    rgba(247, 231, 206, 0.015) 0px,
+    rgba(247, 231, 206, 0.015) 1px,
+    transparent 1px,
+    transparent 48px
+  );
+  pointer-events: none;
+}
+
+/* ── Header ──────────────────────────────────────────────────── */
+.about-header {
+  text-align: center;
+  margin-bottom: 4rem;
+}
+
+.about-eyebrow {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--gold-deep);
+  margin-bottom: 0.6rem;
+}
+
+/* ── Two-column layout ───────────────────────────────────────── */
+.about-content {
+  display: grid;
+  grid-template-columns: 1fr 1.4fr;
+  gap: 4rem;
+  align-items: center;
+  margin-bottom: 5rem;
+}
+
+@media (max-width: 900px) {
+  .about-content {
+    grid-template-columns: 1fr;
+    gap: 2.5rem;
+  }
+}
+
+/* ── Image column ────────────────────────────────────────────── */
+.about-image-col {
+  display: flex;
+  justify-content: center;
+}
+
+.about-image-frame {
+  position: relative;
+  width: 320px;
+  height: 380px;
+  border-radius: 1.25rem;
+}
+
+.about-image-placeholder {
+  width: 100%;
+  height: 100%;
+  border-radius: 1.25rem;
+  background: var(--bg-elevated);
+  border: 1px solid var(--lime-border);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: border-color 0.3s ease, box-shadow 0.3s ease;
+}
+
+.about-image-placeholder:hover {
+  border-color: rgba(247, 231, 206, 0.3);
+  box-shadow: var(--shadow-gold);
+}
+
+.placeholder-icon {
+  font-size: 2.5rem;
+  color: var(--gold-deep);
+  opacity: 0.5;
+}
+
+.placeholder-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-muted);
+  letter-spacing: 0.05em;
+}
+
+/* Decorative corner brackets */
+.frame-corner {
+  position: absolute;
+  width: 24px;
+  height: 24px;
+  border-color: var(--gold);
+  border-style: solid;
+}
+.frame-corner--tl {
+  top: -8px; left: -8px;
+  border-width: 2px 0 0 2px;
+  border-radius: 4px 0 0 0;
+}
+.frame-corner--br {
+  bottom: -8px; right: -8px;
+  border-width: 0 2px 2px 0;
+  border-radius: 0 0 4px 0;
+}
+
+/* ── Text column ─────────────────────────────────────────────── */
+.about-text-col {
+  display: flex;
+  flex-direction: column;
+  gap: 1.25rem;
+}
+
+.about-body {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 1.05rem;
+  line-height: 1.8;
+  color: var(--text-secondary);
+}
+
+/* ── Highlight cards ─────────────────────────────────────────── */
+.about-highlights {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  margin-top: 0.5rem;
+}
+
+.highlight-card {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1rem 1.25rem;
+  border-radius: 0.875rem;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+
+.highlight-card:hover {
+  transform: translateX(4px);
+  box-shadow: var(--shadow-gold);
+}
+
+.highlight-icon {
+  font-size: 1.25rem;
+  color: var(--gold);
+  flex-shrink: 0;
+  margin-top: 2px;
+}
+
+.highlight-title {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.92rem;
+  font-weight: 700;
+  color: var(--text-primary);
+  margin-bottom: 0.2rem;
+  letter-spacing: 0.01em;
+}
+
+.highlight-desc {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.85rem;
+  color: var(--text-secondary);
+  line-height: 1.6;
+}
+
+/* ── CTA row ─────────────────────────────────────────────────── */
+.about-cta {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.875rem;
+  margin-top: 0.5rem;
+}
+
+/* ── Stats row ───────────────────────────────────────────────── */
+.about-stats {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 1.25rem;
+}
+
+@media (max-width: 768px) {
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 480px) {
+  .about-stats {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.875rem;
+  }
+}
+
+.stat-card {
+  text-align: center;
+  padding: 1.5rem 1rem;
+}
+
+.stat-number {
+  font-family: 'Cormorant Garamond', Georgia, serif;
+  font-size: clamp(2rem, 4vw, 2.75rem);
+  font-weight: 700;
+  color: var(--gold);
+  line-height: 1;
+  margin-bottom: 0.4rem;
+}
+
+.stat-label {
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
  
