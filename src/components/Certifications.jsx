@@ -111,7 +111,7 @@ function CertificationCard({ cert, index, isLast }) {
             : '';
         }}
       >
-        {/* Top shimmer line — matches Blog card */}
+        {/* Top shimmer line */}
         <div
           className="absolute top-0 left-0 right-0 h-px"
           style={{ background: 'linear-gradient(to right, transparent, var(--gold), transparent)' }}
@@ -154,7 +154,7 @@ function CertificationCard({ cert, index, isLast }) {
               transform: expanded ? 'rotate(180deg)' : 'rotate(0deg)',
             }}
           >
-            ▾
+            &#9662;
           </span>
         </button>
 
@@ -175,7 +175,7 @@ function CertificationCard({ cert, index, isLast }) {
                     className="text-lg mt-0.5 flex-shrink-0"
                     style={{ color: 'var(--lime-main)' }}
                   >
-                    •
+                    &#8226;
                   </span>
                   <span>{point}</span>
                 </li>
@@ -203,13 +203,13 @@ function CertificationCard({ cert, index, isLast }) {
             {cert.link && (
               <div className="mt-8">
                 
-                    href={cert.link}
-  target="_blank"
-  rel="noopener noreferrer"
-  className="btn btn-primary px-6 py-3 text-sm inline-flex items-center gap-2"
->
-  View Credential &#8594;
-</a>
+                  href={cert.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="btn btn-primary px-6 py-3 text-sm inline-flex items-center gap-2"
+                >
+                  View Credential &#8594;
+                </a>
               </div>
             )}
           </div>
@@ -226,7 +226,7 @@ export default function Certifications() {
   return (
     <section id="certifications" className="py-20 md:py-28 bg-slate-950 relative overflow-hidden">
 
-      {/* Background orbs — matches Blog */}
+      {/* Background orbs */}
       <div className="absolute inset-0 pointer-events-none">
         <div
           className="absolute top-0 right-0 w-80 h-80 rounded-full blur-3xl opacity-30"
@@ -240,7 +240,7 @@ export default function Certifications() {
 
       <div className="max-w-5xl mx-auto px-6 relative z-10">
 
-        {/* Section header — matches Blog header pattern exactly */}
+        {/* Section header */}
         <div className="text-center mb-16 md:mb-20">
           <p
             className="text-sm font-semibold tracking-widest uppercase mb-3"
@@ -280,7 +280,7 @@ export default function Certifications() {
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <a href="#contact" className="btn btn-primary text-base px-8 py-3">
-              Let's Connect
+              Let&#39;s Connect
             </a>
             
               href="https://www.linkedin.com/in/bernard-limo-77937b138/"
