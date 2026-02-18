@@ -14,10 +14,10 @@ const Hero = () => {
         <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
           Bridging business needs and technology solutions in banking, insurance, healthcare, and beyond. Transforming requirements into impactful outcomes.
         </p>
-<div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
+<div className="flex flex-col sm:flex-row flex-wrap gap-5 sm:gap-6 justify-center items-center mt-8">
   <a
     href="#contact"
-    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
+    className="min-w-[180px] bg-blue-600 hover:bg-blue-700 text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-center"
   >
     Get in Touch
   </a>
@@ -26,20 +26,20 @@ const Hero = () => {
     href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a"
     target="_blank"
     rel="noopener noreferrer"
-    className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-bold py-4 px-8 rounded-lg transition duration-300"
+    className="min-w-[180px] border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-400 focus:ring-offset-2 text-center"
   >
     View Full Portfolio (Notion)
   </a>
 
-  <span className="hidden sm:inline text-gray-400 text-xl font-bold"> | </span>
+  <span className="hidden sm:inline text-gray-400 text-xl font-bold px-2">|</span>
 
   <a
     href="https://www.linkedin.com/in/bernard-limo-77937b138/"
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-[#0A66C2] hover:bg-[#004182] text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
+    className="min-w-[180px] bg-[#0A66C2] hover:bg-[#004182] text-white font-semibold text-base sm:text-lg py-4 px-8 rounded-lg transition duration-300 shadow-md hover:shadow-lg hover:scale-105 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 text-center"
   >
-    Follow Me on LinkedIn
+    Follow on LinkedIn
   </a>
 </div>
       </div>
