@@ -77,7 +77,6 @@ function Hero() {
     return () => clearTimeout(t);
   }, []);
 
-  // Mouse parallax
   useEffect(() => {
     const el = heroRef.current;
     if (!el) return;
@@ -255,14 +254,14 @@ function Hero() {
             className="btn btn-primary"
             style={{ padding: '0.85rem 2rem', fontSize: '0.82rem', gap: '0.5rem' }}
           >
-            ↗ View Portfolio
+            &#8599; View Portfolio
           </a>
           
             href="#contact"
             className="btn btn-outline"
             style={{ padding: '0.85rem 2rem', fontSize: '0.82rem', gap: '0.5rem' }}
           >
-            ✉ Contact Me
+            &#9993; Contact Me
           </a>
         </div>
 
@@ -279,177 +278,16 @@ function Hero() {
           <div style={{ display: 'flex', gap: '0.75rem', flexWrap: 'wrap', justifyContent: 'center' }}>
             {[
               {
-                label: 'LinkedIn', href: 'https://www.linkedin.com/in/bernard-limo-77937b138/',
+                label: 'LinkedIn',
+                href: 'https://www.linkedin.com/in/bernard-limo-77937b138/',
                 bg: 'rgba(10, 102, 194, 0.10)',
                 border: 'rgba(10, 102, 194, 0.35)',
                 color: '#004182',
                 hoverBg: 'rgba(0, 65, 130, 0.18)',
               },
               {
-                label: 'Email Me', href: 'mailto:koneslimo@gmail.com',
-                bg: 'var(--gold-subtle)', border: 'rgba(247,231,206,0.2)', color: 'var(--gold)',
-                hoverBg: 'rgba(247,231,206,0.18)',
-              },
-            ].map(({ label, href, bg, border, color, hoverBg }) => (
-              <a key={label} href={href}
-                target={href.startsWith('mailto') ? '_self' : '_blank'}
-                rel="noopener noreferrer"
-                style={{
-                  display: 'inline-flex', alignItems: 'center', gap: '0.5rem',
-                  padding: '0.6rem 1.4rem', borderRadius: '0.625rem',
-                  background: bg, border: `1px solid ${border}`, color,
-                  fontFamily: "'DM Sans', sans-serif",
-                  fontSize: '0.8rem', fontWeight: 600,
-                  textDecoration: 'none', transition: 'all 0.25s ease',
-                }}
-                onMouseEnter={(e) => {
-                  e.currentTarget.style.background  = hoverBg;
-                  e.currentTarget.style.transform   = 'translateY(-2px)';
-                  e.currentTarget.style.boxShadow   = '0 4px 16px rgba(0,0,0,0.3)';
-                }}
-                onMouseLeave={(e) => {
-                  e.currentTarget.style.background  = bg;
-                  e.currentTarget.style.transform   = 'translateY(0)';
-                  e.currentTarget.style.boxShadow   = 'none';
-                }}
-              >
-                {label}
-              </a>
-            ))}
-          </div>
-        </div>
-
-        {/* Stats strip */}
-        <div
-          className="hero-stats"
-          style={{
-            ...fade(0.7),
-            display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
-            gap: '1px', width: '100%', maxWidth: '580px',
-            marginTop: '1rem',
-            background: 'var(--lime-border)',
-            borderRadius: '1rem', overflow: 'hidden',
-            border: '1px solid var(--lime-border)',
-          }}
-        >
-          {[
-            { value: '8+',       label: 'Years Exp.'    },
-            { value: '30+',      label: 'Projects'      },
-            { value: '5',        label: 'Industries'    },
-            { value: 'Kes 2.2M', label: 'Revenue Gen.' },
-          ].map(({ value, label }) => (
-            <div key={label} style={{
-              background: 'var(--bg-elevated)', padding: '1rem 0.5rem',
-              textAlign: 'center', transition: 'background 0.2s ease', cursor: 'default',
-            }}
-              onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-surface)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elevated)'; }}
-            >
-              <div style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize: 'clamp(1.1rem, 3vw, 1.6rem)',
-                fontWeight: 700, color: 'var(--gold)',
-                lineHeight: 1, marginBottom: '0.25rem',
-              }}>
-                {value}
-              </div>
-              <div style={{
-                fontFamily: "'DM Sans', sans-serif",
-                fontSize: '0.62rem', fontWeight: 600,
-                letterSpacing: '0.07em', textTransform: 'uppercase',
-                color: 'var(--text-muted)',
-              }}>
-                {label}
-              </div>
-            </div>
-          ))}
-        </div>
-
-      </div>
-
-      {/* Scroll indicator */}
-      <div style={{
-        position: 'absolute', bottom: '2rem', left: '50%',
-        transform: 'translateX(-50%)',
-        display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.4rem',
-        opacity: loaded ? 1 : 0, transition: 'opacity 0.6s ease 1.2s', zIndex: 2,
-      }}>
-        <span style={{
-          fontFamily: "'DM Sans', sans-serif",
-          fontSize: '0.62rem', fontWeight: 600,
-          letterSpacing: '0.14em', textTransform: 'uppercase',
-          color: 'var(--text-muted)',
-        }}>
-          Scroll
-        </span>
-        <div style={{
-          width: '1px', height: '40px',
-          background: 'linear-gradient(180deg, var(--gold-deep), transparent)',
-          animation: 'scrollPulse 2s ease-in-out infinite',
-        }} />
-      </div>
-
-      <style>{`
-        @keyframes floatDrift {
-          from { transform: translateY(0px) translateX(0px); opacity: 0.5; }
-          to   { transform: translateY(-12px) translateX(6px); opacity: 1; }
-        }
-        @keyframes floatBob {
-          from { transform: translateY(0px) rotate(-2deg); }
-          to   { transform: translateY(-14px) rotate(2deg); }
-        }
-        @keyframes cursorBlink {
-          0%, 100% { opacity: 1; }
-          50%      { opacity: 0; }
-        }
-        @keyframes scrollPulse {
-          0%, 100% { opacity: 0.3; }
-          50%      { opacity: 1; }
-        }
-        @keyframes shimmer {
-          0%   { background-position: -200% center; }
-          100% { background-position:  200% center; }
-        }
-        @media (max-width: 480px) {
-          .hero-stats { grid-template-columns: repeat(2, 1fr) !important; }
-        }
-      `}</style>
-    </section>
-  );
-}
-
-// ── Home (page assembler) ─────────────────────────────────────
-export default function Home() {
-  // Scroll-reveal for .reveal elements
-  useEffect(() => {
-    const reveals = document.querySelectorAll('.reveal');
-    if (!reveals.length) return;
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add('visible');
-            observer.unobserve(entry.target);
-          }
-        });
-      },
-      { threshold: 0.12 }
-    );
-    reveals.forEach((el) => observer.observe(el));
-    return () => observer.disconnect();
-  }, []);
-
-  return (
-    <main>
-      <Hero />
-      <About />
-      <Experience />
-      <Skills />
-      <TechStack />
-      <Projects />
-      <Certifications />
-      <Blog />
-      <Contact />
-    </main>
-  );
-}
+                label: 'Email Me',
+                href: 'mailto:koneslimo@gmail.com',
+                bg: 'var(--gold-subtle)',
+                border: 'rgba(247,231,206,0.2)',
+                color: 'var(-
