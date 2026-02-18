@@ -18,10 +18,10 @@ const contactLinks = [
   },
   {
     label: 'Email',
-    value: 'bernard@email.com', // ← replace with real email
-    href: 'mailto:bernard@email.com',
+    value: 'koneslimo@gmail.com', // ← replace with real email
+    href: 'mailto:koneslimo@gmail.com',
     icon: '⬡',
-    display: 'bernard@email.com',
+    display: 'koneslimo@gmail.com',
   },
 ];
 
