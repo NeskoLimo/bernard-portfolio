@@ -14,22 +14,30 @@ const Hero = () => {
         <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
           Bridging business needs and technology solutions in banking, insurance, healthcare, and beyond. Transforming requirements into impactful outcomes.
         </p>
-        <div className="flex flex-col sm:flex-row gap-6 justify-center">
-          <a
-            href="#contact"
-            className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
-          >
-            Get in Touch
-          </a>
-          <a
-            href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a"
-            target="_blank"
-            rel="noopener noreferrer"
-            className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-bold py-4 px-8 rounded-lg transition duration-300"
-          >
-            View Full Portfolio (Notion)
-          </a>
-        </div>
+      <div className="flex flex-col sm:flex-row gap-6 justify-center">
+  <a
+    href="#contact"
+    className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
+  >
+    Get in Touch
+  </a>
+  <a
+    href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="border-2 border-blue-400 text-blue-400 hover:bg-blue-400 hover:text-white font-bold py-4 px-8 rounded-lg transition duration-300"
+  >
+    View Full Portfolio (Notion)
+  </a>
+  <a
+    href="https://x.com/Nesko_Bernard"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
+  >
+    Follow on X (@Nesko_Bernard)
+  </a>
+</div>
       </div>
     </section>
   );
