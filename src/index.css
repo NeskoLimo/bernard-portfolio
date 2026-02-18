@@ -2,21 +2,24 @@
 @tailwind components;
 @tailwind utilities;
 
-/* ================================================
-   Light Green Professional Theme
-   ================================================ */
+/* Darker Lime Green Theme */
 :root {
-  --green-50:  #f0fdf4;
-  --green-100: #ecfdf5;
-  --green-200: #d1fae5;
-  --green-300: #a7f3d0;
-  --green-500: #10b981;
-  --green-600: #059669;
-  --green-700: #047857;
+  --lime-900: #365314;   /* Very dark lime base */
+  --lime-800: #3f6212;
+  --lime-700: #4d7c0f;
+  --lime-600: #65a30d;
+  --lime-500: #84cc16;   /* Main accent */
+  --lime-400: #a3e635;
+  --lime-300: #bef264;
+  --lime-200: #d9f99d;
+  --lime-100: #ecfccb;
+  --lime-50:  #f7fee7;    /* Very light lime for backgrounds */
+
   --gray-900:  #111827;
   --gray-800:  #1f2937;
   --gray-700:  #374151;
   --gray-600:  #4b5563;
+  --gray-500:  #6b7280;
   --gray-100:  #f3f4f6;
 }
 
@@ -27,42 +30,33 @@ html {
 body {
   margin: 0;
   font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--green-50);
+  background-color: var(--lime-50);          /* Very light lime background */
   color: var(--gray-900);
   line-height: 1.6;
 }
 
-/* Smooth transitions for interactive elements */
-a, button {
-  transition: all 0.25s ease;
+/* Darker lime accent for interactive elements */
+a:hover, button:hover {
+  color: var(--lime-600);
 }
 
-/* Better focus states for accessibility */
-a:focus, button:focus {
-  outline: 3px solid var(--green-300);
-  outline-offset: 2px;
-}
-
-/* ================================================
-   Button styles (used in Hero and elsewhere)
-   ================================================ */
 .btn {
   @apply inline-flex items-center justify-center px-6 py-3 font-medium rounded-lg transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2;
 }
 
 .btn-primary {
-  @apply bg-green-600 text-white hover:bg-green-700 focus:ring-green-500;
+  @apply bg-lime-600 text-white hover:bg-lime-700 focus:ring-lime-500;
 }
 
 .btn-outline {
-  @apply border-2 border-green-600 text-green-700 hover:bg-green-50 hover:text-green-800 focus:ring-green-500;
+  @apply border-2 border-lime-600 text-lime-700 hover:bg-lime-50 hover:text-lime-800 focus:ring-lime-500;
 }
 
 .btn-link {
-  @apply text-green-700 hover:text-green-900 underline underline-offset-4 hover:no-underline;
+  @apply text-lime-700 hover:text-lime-900 underline underline-offset-4 hover:no-underline;
 }
 
-/* Container max-width for better readability */
+/* Container */
 .container {
   @apply max-w-7xl mx-auto px-6 lg:px-8;
 }
