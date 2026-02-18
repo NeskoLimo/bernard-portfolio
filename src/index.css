@@ -2,61 +2,47 @@
 @tailwind components;
 @tailwind utilities;
 
-/* Darker Lime Green Theme */
-:root {
-  --lime-900: #365314;   /* Very dark lime base */
-  --lime-800: #3f6212;
-  --lime-700: #4d7c0f;
-  --lime-600: #65a30d;
-  --lime-500: #84cc16;   /* Main accent */
-  --lime-400: #a3e635;
-  --lime-300: #bef264;
-  --lime-200: #d9f99d;
-  --lime-100: #ecfccb;
-  --lime-50:  #f7fee7;    /* Very light lime for backgrounds */
+@layer base {
+  :root {
+    --background: 15 23 42;      /* slate-900 */
+    --foreground: 240 10 3.9;
+  }
 
-  --gray-900:  #111827;
-  --gray-800:  #1f2937;
-  --gray-700:  #374151;
-  --gray-600:  #4b5563;
-  --gray-500:  #6b7280;
-  --gray-100:  #f3f4f6;
+  body {
+    @apply bg-slate-950 text-slate-100 min-h-screen antialiased;
+  }
 }
 
-html {
-  scroll-behavior: smooth;
-}
+@layer components {
+  .btn {
+    @apply inline-flex items-center justify-center rounded-md font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950;
+  }
 
-body {
-  margin: 0;
-  font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  background-color: var(--lime-50);          /* Very light lime background */
-  color: var(--gray-900);
-  line-height: 1.6;
-}
+  .btn-primary {
+    @apply bg-lime-main hover:bg-lime-hover text-white shadow-md hover:shadow-lg hover:scale-[1.02] px-6 py-3;
+  }
 
-/* Darker lime accent for interactive elements */
-a:hover, button:hover {
-  color: var(--lime-600);
-}
+  .btn-outline {
+    @apply border-2 border-lime-main text-lime-main hover:bg-lime-main/10 px-6 py-3;
+  }
 
-.btn {
-  @apply inline-flex items-center justify-center px-6 py-3 font-medium rounded-lg transition-all duration-300 shadow-sm hover:shadow-md focus:outline-none focus:ring-2 focus:ring-offset-2;
-}
+  .btn-gold {
+    @apply bg-gold hover:bg-gold-dark text-slate-950 font-semibold px-6 py-3 shadow-md hover:shadow-lg hover:scale-[1.02];
+  }
 
-.btn-primary {
-  @apply bg-lime-600 text-white hover:bg-lime-700 focus:ring-lime-500;
-}
+  .section-container {
+    @apply container mx-auto px-6 py-16 md:py-20 lg:py-24 max-w-7xl;
+  }
 
-.btn-outline {
-  @apply border-2 border-lime-600 text-lime-700 hover:bg-lime-50 hover:text-lime-800 focus:ring-lime-500;
-}
+  .heading-1 {
+    @apply text-4xl md:text-5xl lg:text-6xl font-bold tracking-tight text-center mb-6;
+  }
 
-.btn-link {
-  @apply text-lime-700 hover:text-lime-900 underline underline-offset-4 hover:no-underline;
-}
+  .heading-2 {
+    @apply text-3xl md:text-4xl font-semibold text-lime-main mb-10 text-center;
+  }
 
-/* Container */
-.container {
-  @apply max-w-7xl mx-auto px-6 lg:px-8;
+  .card {
+    @apply bg-slate-900/60 backdrop-blur-sm border border-slate-800 rounded-xl p-6 md:p-8 shadow-lg hover:shadow-2xl hover:border-lime-main/50 transition-all duration-300;
+  }
 }
