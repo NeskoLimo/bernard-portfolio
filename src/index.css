@@ -4,54 +4,523 @@
 
 @layer base {
   :root {
-    --background: 2 6 23;        /* slate-950 */
-    --foreground: 240 10 3.9;
+    /* ── Core Palette ────────────────────────────────────────── */
+    --bg-base:          #0d1a0d;   /* deepest dark lime-green     */
+    --bg-surface:       #112211;   /* card / panel surface        */
+    --bg-elevated:      #162916;   /* slightly lifted surface     */
+
+    --lime-main:        #4ade80;   /* bright lime accent          */
+    --lime-hover:       #22c55e;   /* deeper lime on hover        */
+    --lime-muted:       #1a3d1a;   /* muted lime for subtle fills */
+    --lime-border:      #2d5a2d;   /* border tint                 */
+
+    --gold:             #F7E7CE;   /* champagne gold – primary    */
+    --gold-dark:        #e0c9a6;   /* champagne gold on hover     */
+    --gold-deep:        #c9a96e;   /* deeper gold for shadows     */
+    --gold-subtle:      rgba(247, 231, 206, 0.12); /* glass tint  */
+
+    --text-primary:     #F0EDE6;   /* warm off-white              */
+    --text-secondary:   #A8B89A;   /* muted sage-green            */
+    --text-muted:       #5a7a5a;   /* very muted green-grey       */
+
+    --radius-sm:        0.5rem;
+    --radius-md:        0.75rem;
+    --radius-lg:        1rem;
+    --radius-xl:        1.5rem;
+
+    --shadow-gold:      0 0 24px rgba(247, 231, 206, 0.18),
+                        0 4px 16px rgba(247, 231, 206, 0.10);
+    --shadow-gold-lg:   0 0 48px rgba(247, 231, 206, 0.22),
+                        0 8px 32px rgba(247, 231, 206, 0.14);
+    --shadow-card:      0 4px 24px rgba(0, 0, 0, 0.45);
   }
 
-  body {
-    @apply bg-slate-950 text-slate-100 min-h-screen antialiased;
-    background: linear-gradient(to bottom, #020617, #0f172a);
+  /* ── Reset & Base ──────────────────────────────────────────── */
+  *, *::before, *::after {
+    box-sizing: border-box;
   }
 
   html {
     scroll-behavior: smooth;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+
+  body {
+    background-color: var(--bg-base);
+    color: var(--text-primary);
+    min-height: 100vh;
+    /* Subtle noise texture layered over a deep dark-lime gradient */
+    background-image:
+      url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.03'/%3E%3C/svg%3E"),
+      linear-gradient(160deg, #0d1a0d 0%, #0a160a 40%, #060f06 100%);
+    background-attachment: fixed;
+    font-family: 'Cormorant Garamond', 'Georgia', serif; /* elegant editorial base */
+  }
+
+  /* Headings use a distinctive display font feel */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: 'Cormorant Garamond', 'Georgia', serif;
+    letter-spacing: -0.01em;
+    color: var(--text-primary);
+  }
+
+  /* Body copy */
+  p, li, span, label, input, textarea {
+    font-family: 'DM Sans', 'Helvetica Neue', sans-serif;
+  }
+
+  ::selection {
+    background: var(--gold);
+    color: var(--bg-base);
+  }
+
+  /* Scrollbar styling */
+  ::-webkit-scrollbar {
+    width: 6px;
+  }
+  ::-webkit-scrollbar-track {
+    background: var(--bg-base);
+  }
+  ::-webkit-scrollbar-thumb {
+    background: var(--lime-border);
+    border-radius: 3px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background: var(--gold-deep);
   }
 }
 
 @layer components {
+
+  /* ── Buttons ─────────────────────────────────────────────────── */
   .btn {
-    @apply inline-flex items-center justify-center rounded-xl font-medium transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-slate-950 shadow-md hover:shadow-lg;
+    @apply inline-flex items-center justify-center rounded-xl font-medium
+           transition-all duration-300 focus:outline-none focus:ring-2
+           focus:ring-offset-2 shadow-md hover:shadow-lg
+           tracking-wide cursor-pointer select-none;
+    focus-ring-offset-color: var(--bg-base);
   }
 
+  /* PRIMARY – champagne gold, dark text, glowing */
   .btn-primary {
-    @apply bg-lime-main hover:bg-lime-hover text-white focus:ring-lime-main;
+    background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
+    color: var(--bg-base);
+    font-weight: 700;
+    box-shadow: var(--shadow-gold);
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  .btn-primary:hover {
+    background: linear-gradient(135deg, #fff3e0 0%, var(--gold) 100%);
+    box-shadow: var(--shadow-gold-lg);
+    transform: translateY(-2px);
+  }
+  .btn-primary:active {
+    transform: translateY(0);
+    box-shadow: var(--shadow-gold);
   }
 
+  /* OUTLINE – ghost with gold border */
+  .btn-outline {
+    background: transparent;
+    border: 1.5px solid var(--gold);
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    font-size: 0.8rem;
+  }
+  .btn-outline:hover {
+    background: var(--gold-subtle);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
+  }
+
+  /* LIME – secondary action */
+  .btn-lime {
+    @apply bg-lime-400 hover:bg-lime-300 text-slate-950 font-semibold;
+    letter-spacing: 0.02em;
+  }
+  .btn-lime:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 0 20px rgba(74, 222, 128, 0.3);
+  }
+
+  /* Keep legacy btn-gold alias */
   .btn-gold {
-    @apply bg-gold hover:bg-gold-dark text-slate-950 font-semibold shadow-gold-glow hover:shadow-gold-glow focus:ring-gold;
+    @apply btn btn-primary;
   }
 
+  /* ── Navigation ─────────────────────────────────────────────── */
   .nav-link {
-    @apply text-slate-300 hover:text-lime-main font-medium transition-colors duration-200;
+    color: var(--text-secondary);
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 500;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    transition: color 0.2s ease, border-color 0.2s ease;
+    position: relative;
+    padding-bottom: 2px;
+  }
+  .nav-link::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0;
+    width: 0; height: 1.5px;
+    background: var(--gold);
+    transition: width 0.3s ease;
+  }
+  .nav-link:hover {
+    color: var(--gold);
+  }
+  .nav-link:hover::after {
+    width: 100%;
   }
 
   .nav-active {
-    @apply text-lime-main font-semibold border-b-2 border-lime-main;
+    color: var(--gold) !important;
+    font-weight: 700;
+  }
+  .nav-active::after {
+    width: 100% !important;
   }
 
+  /* Navbar container – glass morphism on dark lime */
+  .navbar {
+    background: rgba(13, 26, 13, 0.75);
+    backdrop-filter: blur(16px) saturate(160%);
+    -webkit-backdrop-filter: blur(16px) saturate(160%);
+    border-bottom: 1px solid rgba(247, 231, 206, 0.08);
+    box-shadow: 0 2px 24px rgba(0, 0, 0, 0.4);
+  }
+
+  /* ── Layout ──────────────────────────────────────────────────── */
   .section-container {
     @apply container mx-auto px-6 py-16 md:py-20 lg:py-24 max-w-7xl;
   }
 
+  /* Section divider accent line */
+  .section-divider {
+    width: 64px;
+    height: 3px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    border-radius: 2px;
+    margin: 1rem auto 2.5rem;
+  }
+
+  /* ── Typography ──────────────────────────────────────────────── */
   .heading-1 {
-    @apply text-5xl md:text-7xl font-bold tracking-tight text-white mb-6;
+    font-size: clamp(2.8rem, 8vw, 5rem);
+    font-weight: 700;
+    letter-spacing: -0.02em;
+    line-height: 1.05;
+    color: var(--text-primary);
+    margin-bottom: 1.5rem;
   }
 
   .heading-2 {
-    @apply text-3xl md:text-5xl font-semibold text-lime-main mb-10 text-center;
+    font-size: clamp(2rem, 5vw, 3rem);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+    color: var(--gold);
+    text-align: center;
+    margin-bottom: 0.5rem;
   }
 
+  .heading-3 {
+    font-size: 1.4rem;
+    font-weight: 600;
+    color: var(--text-primary);
+    letter-spacing: -0.01em;
+  }
+
+  .text-gold {
+    color: var(--gold);
+  }
+
+  .text-lime {
+    color: var(--lime-main);
+  }
+
+  .text-muted {
+    color: var(--text-secondary);
+  }
+
+  /* Highlighted span (name, keyword) */
+  .highlight {
+    color: var(--gold);
+    position: relative;
+  }
+  .highlight::after {
+    content: '';
+    position: absolute;
+    bottom: -2px; left: 0;
+    width: 100%; height: 2px;
+    background: linear-gradient(90deg, var(--gold), transparent);
+    border-radius: 1px;
+  }
+
+  /* ── Cards ──────────────────────────────────────────────────── */
   .card {
-    @apply bg-slate-900/70 backdrop-blur-md border border-slate-800 rounded-xl p-6 md:p-8 shadow-lg hover:shadow-gold-glow hover:border-lime-main/50 transition-all duration-300;
+    background: var(--bg-surface);
+    border: 1px solid var(--lime-border);
+    border-radius: var(--radius-lg);
+    padding: 1.75rem 2rem;
+    box-shadow: var(--shadow-card);
+    transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+    position: relative;
+    overflow: hidden;
+  }
+  /* Subtle gold top-edge shimmer */
+  .card::before {
+    content: '';
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+    opacity: 0;
+    transition: opacity 0.3s ease;
+  }
+  .card:hover {
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-gold);
+    border-color: rgba(247, 231, 206, 0.25);
+  }
+  .card:hover::before {
+    opacity: 1;
+  }
+
+  /* Glass card variant */
+  .card-glass {
+    background: rgba(22, 41, 22, 0.6);
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+    border: 1px solid rgba(247, 231, 206, 0.1);
+    border-radius: var(--radius-lg);
+    box-shadow: var(--shadow-card);
+    transition: all 0.3s ease;
+  }
+  .card-glass:hover {
+    border-color: rgba(247, 231, 206, 0.25);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-3px);
+  }
+
+  /* ── Tags / Badges ──────────────────────────────────────────── */
+  .tag {
+    display: inline-flex;
+    align-items: center;
+    padding: 0.25rem 0.75rem;
+    border-radius: 9999px;
+    font-size: 0.75rem;
+    font-weight: 600;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    font-family: 'DM Sans', sans-serif;
+    transition: all 0.2s ease;
+  }
+
+  .tag-gold {
+    background: var(--gold-subtle);
+    border: 1px solid rgba(247, 231, 206, 0.3);
+    color: var(--gold);
+  }
+  .tag-gold:hover {
+    background: rgba(247, 231, 206, 0.2);
+    border-color: var(--gold);
+  }
+
+  .tag-lime {
+    background: rgba(74, 222, 128, 0.1);
+    border: 1px solid rgba(74, 222, 128, 0.25);
+    color: var(--lime-main);
+  }
+  .tag-lime:hover {
+    background: rgba(74, 222, 128, 0.2);
+  }
+
+  /* ── Form Elements ──────────────────────────────────────────── */
+  .input {
+    width: 100%;
+    background: var(--bg-elevated);
+    border: 1px solid var(--lime-border);
+    border-radius: var(--radius-md);
+    padding: 0.75rem 1rem;
+    color: var(--text-primary);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.95rem;
+    transition: border-color 0.25s ease, box-shadow 0.25s ease;
+    outline: none;
+  }
+  .input::placeholder {
+    color: var(--text-muted);
+  }
+  .input:focus {
+    border-color: var(--gold);
+    box-shadow: 0 0 0 3px rgba(247, 231, 206, 0.12);
+  }
+
+  .label {
+    display: block;
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.8rem;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--text-secondary);
+    margin-bottom: 0.4rem;
+  }
+
+  /* ── Progress / Skill Bars ──────────────────────────────────── */
+  .skill-bar-track {
+    width: 100%;
+    height: 6px;
+    background: var(--lime-muted);
+    border-radius: 3px;
+    overflow: hidden;
+  }
+  .skill-bar-fill {
+    height: 100%;
+    border-radius: 3px;
+    background: linear-gradient(90deg, var(--gold-deep), var(--gold));
+    box-shadow: 0 0 8px rgba(247, 231, 206, 0.4);
+    transition: width 0.8s cubic-bezier(0.4, 0, 0.2, 1);
+  }
+
+  /* ── Section Hero accent ────────────────────────────────────── */
+  .hero-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.4rem;
+    padding: 0.35rem 1rem;
+    border-radius: 9999px;
+    background: var(--gold-subtle);
+    border: 1px solid rgba(247, 231, 206, 0.2);
+    color: var(--gold);
+    font-family: 'DM Sans', sans-serif;
+    font-size: 0.78rem;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    margin-bottom: 1.25rem;
+  }
+  .hero-badge::before {
+    content: '';
+    width: 6px; height: 6px;
+    border-radius: 50%;
+    background: var(--gold);
+    box-shadow: 0 0 6px var(--gold);
+    animation: pulse-gold 2s ease-in-out infinite;
+  }
+
+  /* ── Social / Icon Buttons ──────────────────────────────────── */
+  .icon-btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5rem; height: 2.5rem;
+    border-radius: var(--radius-md);
+    background: var(--bg-elevated);
+    border: 1px solid var(--lime-border);
+    color: var(--text-secondary);
+    transition: all 0.25s ease;
+  }
+  .icon-btn:hover {
+    background: var(--gold-subtle);
+    border-color: var(--gold);
+    color: var(--gold);
+    box-shadow: var(--shadow-gold);
+    transform: translateY(-2px);
+  }
+
+  /* ── Decorative divider line ────────────────────────────────── */
+  .gold-rule {
+    border: none;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, var(--gold-deep), transparent);
+    margin: 3rem 0;
+    opacity: 0.4;
+  }
+
+  /* ── Timeline (Experience) ──────────────────────────────────── */
+  .timeline-line {
+    width: 2px;
+    background: linear-gradient(180deg, var(--gold-deep), var(--lime-border));
+    border-radius: 1px;
+  }
+  .timeline-dot {
+    width: 12px; height: 12px;
+    border-radius: 50%;
+    background: var(--gold);
+    border: 2px solid var(--bg-base);
+    box-shadow: 0 0 8px rgba(247, 231, 206, 0.5);
+    flex-shrink: 0;
+  }
+}
+
+@layer utilities {
+  /* ── Animations ─────────────────────────────────────────────── */
+  @keyframes pulse-gold {
+    0%, 100% { opacity: 1; transform: scale(1); }
+    50%       { opacity: 0.6; transform: scale(0.85); }
+  }
+
+  @keyframes fade-in-up {
+    from { opacity: 0; transform: translateY(24px); }
+    to   { opacity: 1; transform: translateY(0); }
+  }
+
+  @keyframes fade-in {
+    from { opacity: 0; }
+    to   { opacity: 1; }
+  }
+
+  @keyframes shimmer {
+    0%   { background-position: -200% center; }
+    100% { background-position:  200% center; }
+  }
+
+  .animate-fade-in-up {
+    animation: fade-in-up 0.6s cubic-bezier(0.4, 0, 0.2, 1) both;
+  }
+  .animate-fade-in {
+    animation: fade-in 0.5s ease both;
+  }
+  .animate-delay-100 { animation-delay: 0.1s; }
+  .animate-delay-200 { animation-delay: 0.2s; }
+  .animate-delay-300 { animation-delay: 0.3s; }
+  .animate-delay-400 { animation-delay: 0.4s; }
+  .animate-delay-500 { animation-delay: 0.5s; }
+
+  /* Gold shimmer text effect */
+  .text-shimmer {
+    background: linear-gradient(
+      90deg,
+      var(--gold-deep) 0%,
+      var(--gold)      30%,
+      #fff8ee          50%,
+      var(--gold)      70%,
+      var(--gold-deep) 100%
+    );
+    background-size: 200% auto;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    animation: shimmer 3.5s linear infinite;
+  }
+
+  /* Utility shadows */
+  .shadow-gold      { box-shadow: var(--shadow-gold); }
+  .shadow-gold-lg   { box-shadow: var(--shadow-gold-lg); }
+
+  /* Glassmorphism utility */
+  .glass {
+    background: rgba(22, 41, 22, 0.55);
+    backdrop-filter: blur(14px) saturate(140%);
+    -webkit-backdrop-filter: blur(14px) saturate(140%);
+    border: 1px solid rgba(247, 231, 206, 0.09);
   }
 }
