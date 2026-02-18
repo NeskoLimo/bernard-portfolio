@@ -1,206 +1,99 @@
 // src/components/Blog.jsx
-import { useRef, useEffect, useState } from 'react';
+import React from 'react';
 
-const articles = [
+const blogPosts = [
   {
     id: 1,
     title: 'Leveraging Data Analytics for Business Growth',
-    excerpt:
-      'Explore how businesses can use data-driven decision making to identify growth opportunities and improve operational efficiency across departments.',
     date: 'Feb 15, 2024',
-    category: 'Analytics',
-    readTime: '5 min read',
-    icon: '◈',
+    excerpt: 'How modern analytics tools and Agile methodologies can transform raw data into strategic business decisions in banking and insurance.',
+    tags: ['Data Analytics', 'Business Intelligence', 'Agile', 'Process Optimization'],
+    link: 'https://cool-pail-cb0.notion.site/...', // replace with real link
   },
   {
     id: 2,
-    title: 'The Role of Business Analysis in Digital Transformation',
-    excerpt:
-      'Understanding how business analysts bridge the gap between technology and business objectives during large-scale transformation initiatives.',
-    date: 'Feb 10, 2024',
-    category: 'Strategy',
-    readTime: '7 min read',
-    icon: '◎',
+    title: 'Requirements Engineering in InsurTech Projects',
+    date: 'Jan 10, 2024',
+    excerpt: 'Best practices for gathering, documenting, and validating requirements to reduce rework and improve delivery speed.',
+    tags: ['Requirements Engineering', 'InsurTech', 'Stakeholder Management', 'UAT'],
+    link: '#',
   },
   {
     id: 3,
-    title: 'Essential Skills for Modern Business Analysts',
-    excerpt:
-      "A comprehensive guide to the technical and soft skills required to excel in the business analysis field in today's rapidly evolving landscape.",
-    date: 'Feb 5, 2024',
-    category: 'Career',
-    readTime: '6 min read',
-    icon: '⬡',
+    title: 'The Role of AI in Process Optimization',
+    date: 'Nov 20, 2023',
+    excerpt: 'Exploring how AI-driven tools can automate workflows, predict bottlenecks, and deliver measurable efficiency gains.',
+    tags: ['AI', 'Process Optimization', 'Automation', 'Business Analysis'],
+    link: '#',
   },
 ];
 
-const categoryStyles = {
-  Analytics: {
-    bg: 'rgba(247,197,112,0.08)',
-    border: 'rgba(247,197,112,0.25)',
-    color: 'var(--gold)',
-  },
-  Strategy: {
-    bg: 'rgba(74,222,128,0.08)',
-    border: 'rgba(74,222,128,0.25)',
-    color: 'var(--lime-main)',
-  },
-  Career: {
-    bg: 'rgba(247,197,112,0.07)',
-    border: 'rgba(247,197,112,0.20)',
-    color: 'var(--gold-deep)',
-  },
-};
-
-function BlogCard({ article, index }) {
-  const cardRef = useRef(null);
-  const [visible, setVisible] = useState(false);
-
-  useEffect(() => {
-    const observer = new IntersectionObserver(
-      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
-      { threshold: 0.15 }
-    );
-    if (cardRef.current) observer.observe(cardRef.current);
-    return () => observer.disconnect();
-  }, []);
-
-  const cat = categoryStyles[article.category] ?? categoryStyles.Analytics;
-
+const Blog = () => {
   return (
-    <article
-      ref={cardRef}
-      className="relative flex flex-col bg-slate-900/70 backdrop-blur-md border border-slate-800 rounded-xl overflow-hidden
-        shadow-lg transition-all duration-300 hover:border-slate-700 hover:shadow-[0_0_28px_rgba(74,222,128,0.08)]
-        hover:-translate-y-1 group"
-      style={{
-        opacity: visible ? 1 : 0,
-        transform: visible ? 'translateY(0)' : 'translateY(28px)',
-        transition: `opacity 0.55s ease ${index * 0.1}s, transform 0.55s ease ${index * 0.1}s`,
-      }}
-    >
-      {/* Top shimmer line — gold gradient */}
-      <div
-        className="absolute top-0 left-0 right-0 h-px"
-        style={{ background: 'linear-gradient(to right, transparent, var(--gold), transparent)' }}
-      />
-
-      {/* Card body */}
-      <div className="flex-1 px-6 pt-7 pb-4 md:px-7">
-
-        {/* Meta row */}
-        <div className="flex items-center justify-between flex-wrap gap-2 mb-5">
-          <span
-            className="text-xs font-semibold tracking-wide uppercase px-3 py-1 rounded-full"
-            style={{ background: cat.bg, border: `1px solid ${cat.border}`, color: cat.color }}
-          >
-            {article.category}
-          </span>
-          <div className="flex items-center gap-2 text-slate-500 text-xs">
-            <span>{article.date}</span>
-            <span>·</span>
-            <span>{article.readTime}</span>
-          </div>
-        </div>
-
-        {/* Icon + Title */}
-        <div className="flex items-start gap-3 mb-4">
-          <span
-            className="text-2xl leading-none mt-0.5 flex-shrink-0"
-            style={{ color: 'var(--gold)' }}
-          >
-            {article.icon}
-          </span>
-          <h3 className="text-lg md:text-xl font-semibold text-white leading-snug group-hover:text-lime-300 transition-colors duration-300">
-            {article.title}
-          </h3>
-        </div>
-
-        {/* Excerpt */}
-        <p className="text-slate-400 text-sm leading-relaxed">
-          {article.excerpt}
-        </p>
-      </div>
-
-      {/* Card footer */}
-      <div className="flex items-center justify-between px-6 py-4 md:px-7 border-t border-slate-800/60">
-        
-          href="#"
-          className="flex items-center gap-2 text-sm font-medium transition-colors duration-200"
-          style={{ color: 'var(--lime-main)' }}
-          onMouseEnter={e => e.currentTarget.style.color = 'var(--lime-hover)'}
-          onMouseLeave={e => e.currentTarget.style.color = 'var(--lime-main)'}
-        >
-          Read Article
-          <span className="transition-transform duration-200 group-hover:translate-x-1 inline-block">→</span>
-        </a>
-        <span className="text-xs font-mono text-slate-600 select-none">
-          {String(index + 1).padStart(2, '0')}
-        </span>
-      </div>
-    </article>
-  );
-}
-
-export default function Blog() {
-  return (
-    <section id="blog" className="py-20 md:py-28 bg-slate-950 relative overflow-hidden">
-
-      {/* Background orbs */}
-      <div className="absolute inset-0 pointer-events-none">
-        <div
-          className="absolute top-0 right-0 w-80 h-80 rounded-full blur-3xl opacity-30"
-          style={{ background: 'radial-gradient(circle, rgba(247,197,112,0.10) 0%, transparent 70%)' }}
-        />
-        <div
-          className="absolute bottom-0 left-0 w-64 h-64 rounded-full blur-3xl opacity-25"
-          style={{ background: 'radial-gradient(circle, rgba(74,222,128,0.08) 0%, transparent 70%)' }}
-        />
-      </div>
-
-      <div className="max-w-6xl mx-auto px-6 relative z-10">
-
-        {/* Header */}
-        <div className="text-center mb-14 md:mb-20">
-          <p className="text-sm font-semibold tracking-widest uppercase text-lime-400 mb-3">
-            Insights &amp; Thinking
-          </p>
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-4">
+    <section id="blog" className="py-16 md:py-24 bg-slate-950 text-white">
+      <div className="max-w-7xl mx-auto px-6 lg:px-8">
+        <div className="text-center mb-12 md:mb-16">
+          <h2 className="text-4xl md:text-5xl font-bold text-lime-400 mb-4">
             Latest Articles
           </h2>
-          <div
-            className="w-16 h-px mx-auto mb-6"
-            style={{ background: 'linear-gradient(to right, var(--gold), var(--lime-main))' }}
-          />
-          <p className="text-lg md:text-xl text-slate-400 max-w-2xl mx-auto leading-relaxed">
-            Thoughts on business analysis, data strategy, and the craft of
-            translating complexity into clarity.
+          <p className="text-lg md:text-xl text-slate-300 max-w-3xl mx-auto">
+            Insights on business analysis, data-driven decision making, process improvement, and emerging technologies.
           </p>
         </div>
 
-        {/* Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-          {articles.map((article, index) => (
-            <BlogCard key={article.id} article={article} index={index} />
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+          {blogPosts.map((post) => (
+            <div
+              key={post.id}
+              className="group bg-slate-900/70 backdrop-blur-sm border border-slate-800 rounded-xl overflow-hidden shadow-lg hover:shadow-gold-glow hover:border-lime-600/50 transition-all duration-300 flex flex-col h-full"
+            >
+              <div className="p-6 md:p-8 flex flex-col flex-grow">
+                <div className="flex items-center justify-between mb-4">
+                  <span className="text-sm text-slate-400">{post.date}</span>
+                  <div className="flex flex-wrap gap-2">
+                    {post.tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="px-3 py-1 bg-lime-900/40 text-lime-300 text-xs rounded-full border border-lime-800/30"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+
+                <h3 className="text-xl md:text-2xl font-semibold mb-4 group-hover:text-lime-400 transition-colors">
+                  {post.title}
+                </h3>
+
+                <p className="text-slate-300 mb-6 flex-grow text-base md:text-lg leading-relaxed">
+                  {post.excerpt}
+                </p>
+
+                <a
+                  href={post.link}
+                  className="mt-auto inline-flex items-center gap-2 text-lime-400 hover:text-lime-300 font-medium transition-colors"
+                >
+                  Read More →
+                </a>
+              </div>
+            </div>
           ))}
         </div>
 
-        {/* Bottom CTA */}
-        <div className="text-center mt-14 md:mt-20">
-          <p className="text-slate-400 mb-6">
-            More articles and case studies available on my Notion portfolio.
-          </p>
-          
+        <div className="text-center mt-12 md:mt-16">
+          <a
             href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary px-8 py-3 text-sm"
+            className="inline-flex items-center gap-3 px-8 py-4 bg-gold-600 hover:bg-gold-500 text-slate-950 font-semibold rounded-xl shadow-gold-glow hover:shadow-gold-glow-lg transition-all text-lg"
           >
-            Read More on Notion
+            View All Articles on Notion ↗
           </a>
         </div>
-
       </div>
     </section>
   );
-}
+};
+
+export default Blog;
