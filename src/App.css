@@ -1,0 +1,14 @@
+.App {
+  background-color: var(--color-bg);
+}
+
+section {
+  min-height: auto;
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  section {
+    padding: 2rem 1rem;
+  }
+}
