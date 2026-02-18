@@ -203,13 +203,13 @@ function CertificationCard({ cert, index, isLast }) {
             {cert.link && (
               <div className="mt-8">
                 
-                  href={cert.link}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="btn btn-primary px-6 py-3 text-sm inline-flex items-center gap-2"
-                >
-                  View Credential →
-                </a>
+                    href={cert.link}
+  target="_blank"
+  rel="noopener noreferrer"
+  className="btn btn-primary px-6 py-3 text-sm inline-flex items-center gap-2"
+>
+  View Credential &#8594;
+</a>
               </div>
             )}
           </div>
