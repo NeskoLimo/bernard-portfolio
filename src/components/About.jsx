@@ -1,12 +1,11 @@
 // src/components/About.jsx
-import './About.css';
 
 const About = () => {
   const stats = [
-    { value: '8+',  label: 'Years Experience' },
+    { value: '8+',  label: 'Years Experience'  },
     { value: '30+', label: 'Projects Completed' },
-    { value: '15+', label: 'Clients Served' },
-    { value: '5',   label: 'Industries Served' },
+    { value: '15+', label: 'Clients Served'     },
+    { value: '5',   label: 'Industries Served'  },
   ];
 
   const highlights = [
@@ -28,47 +27,133 @@ const About = () => {
   ];
 
   return (
-    <section className="about" id="about">
-      <div className="section-container">
+    <section
+      id="about"
+      style={{
+        backgroundColor: 'var(--bg-surface)',
+        position:        'relative',
+        overflow:        'hidden',
+      }}
+    >
+      {/* Faint diagonal texture */}
+      <div style={{
+        position:   'absolute', inset: 0,
+        background: `repeating-linear-gradient(
+          135deg,
+          rgba(247,231,206,0.015) 0px,
+          rgba(247,231,206,0.015) 1px,
+          transparent 1px,
+          transparent 48px
+        )`,
+        pointerEvents: 'none',
+      }} />
 
-        {/* ── Section header ───────────────────────────────────── */}
-        <div className="about-header">
-          <p className="about-eyebrow">Who I Am</p>
+      <div className="section-container" style={{ position: 'relative', zIndex: 1 }}>
+
+        {/* ── Section header ─────────────────────────────────── */}
+        <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
+          <p style={{
+            fontFamily:    "'DM Sans', sans-serif",
+            fontSize:      '0.75rem', fontWeight: 600,
+            letterSpacing: '0.14em', textTransform: 'uppercase',
+            color:         'var(--gold-deep)', marginBottom: '0.6rem',
+          }}>
+            Who I Am
+          </p>
           <h2 className="heading-2">About Me</h2>
           <div className="section-divider" />
         </div>
 
-        {/* ── Main two-column layout ───────────────────────────── */}
-        <div className="about-content">
+        {/* ── Two-column layout ──────────────────────────────── */}
+        <div style={{
+          display:             'grid',
+          gridTemplateColumns: '1fr 1.4fr',
+          gap:                 '4rem',
+          alignItems:          'center',
+          marginBottom:        '5rem',
+        }}
+          className="about-grid"
+        >
 
-          {/* Left — photo */}
-          <div className="about-image-col">
-            <div className="about-image-frame">
+          {/* ── Left: photo ──────────────────────────────────── */}
+          <div style={{ display: 'flex', justifyContent: 'center' }}>
+            <div style={{
+              position:     'relative',
+              width:        '320px',
+              height:       '380px',
+              borderRadius: '1.25rem',
+              flexShrink:   0,
+            }}>
               <img
-  src="/limo.jpg"
-  alt="Bernard Limo — Business Analyst"
-  style={{ objectFit: 'cover', objectPosition: 'center top', ... }}
-/>
-              {/* Decorative corner accents */}
-              <div className="frame-corner frame-corner--tl" />
-              <div className="frame-corner frame-corner--br" />
+                src="/limo.jpg"
+                alt="Bernard Limo — Business Analyst"
+                style={{
+                  width:          '100%',
+                  height:         '100%',
+                  objectFit:      'cover',
+                  objectPosition: 'center top',
+                  borderRadius:   '1.25rem',
+                  display:        'block',
+                  border:         '1px solid var(--lime-border)',
+                  filter:         'brightness(0.97) contrast(1.03)',
+                  transition:     'transform 0.4s ease, box-shadow 0.4s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.transform = 'scale(1.03)';
+                  e.currentTarget.style.boxShadow = '0 0 32px rgba(247,231,206,0.18)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.transform = 'scale(1)';
+                  e.currentTarget.style.boxShadow = 'none';
+                }}
+              />
+
+              {/* Gold corner bracket — top left */}
+              <div style={{
+                position:    'absolute',
+                top: '-8px', left: '-8px',
+                width: '24px', height: '24px',
+                borderTop:   '2px solid var(--gold)',
+                borderLeft:  '2px solid var(--gold)',
+                borderRadius:'4px 0 0 0',
+              }} />
+
+              {/* Gold corner bracket — bottom right */}
+              <div style={{
+                position:      'absolute',
+                bottom: '-8px', right: '-8px',
+                width: '24px', height: '24px',
+                borderBottom:  '2px solid var(--gold)',
+                borderRight:   '2px solid var(--gold)',
+                borderRadius:  '0 0 4px 0',
+              }} />
             </div>
           </div>
 
-          {/* Right — text */}
-          <div className="about-text-col">
-            <p className="about-body">
+          {/* ── Right: text ──────────────────────────────────── */}
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '1.25rem' }}>
+
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize:   '1.05rem', lineHeight: 1.8,
+              color:      'var(--text-secondary)', margin: 0,
+            }}>
               I'm a passionate{' '}
-              <span className="text-gold font-semibold">Business Analyst</span>{' '}
+              <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Business Analyst</span>{' '}
               with expertise in translating complex business requirements into
               data-driven solutions. With a background in analytics and strategic
               planning, I help organisations across{' '}
-              <span className="text-gold font-semibold">
+              <span style={{ color: 'var(--gold)', fontWeight: 600 }}>
                 banking, insurance, and healthcare
               </span>{' '}
               unlock meaningful insights from their data.
             </p>
-            <p className="about-body">
+
+            <p style={{
+              fontFamily: "'DM Sans', sans-serif",
+              fontSize:   '1.05rem', lineHeight: 1.8,
+              color:      'var(--text-secondary)', margin: 0,
+            }}>
               My approach combines technical proficiency with business acumen,
               ensuring every analysis delivers measurable value. I'm committed to
               continuous learning and staying at the forefront of industry trends —
@@ -76,41 +161,191 @@ const About = () => {
             </p>
 
             {/* Highlight cards */}
-            <div className="about-highlights">
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '0.75rem', marginTop: '0.5rem' }}>
               {highlights.map(({ icon, title, desc }) => (
-                <div key={title} className="highlight-card card-glass">
-                  <span className="highlight-icon">{icon}</span>
+                <div
+                  key={title}
+                  style={{
+                    display:        'flex',
+                    alignItems:     'flex-start',
+                    gap:            '1rem',
+                    padding:        '1rem 1.25rem',
+                    borderRadius:   '0.875rem',
+                    background:     'rgba(22,41,22,0.6)',
+                    backdropFilter: 'blur(12px)',
+                    border:         '1px solid rgba(247,231,206,0.09)',
+                    transition:     'transform 0.25s ease, box-shadow 0.25s ease',
+                  }}
+                  onMouseEnter={(e) => {
+                    e.currentTarget.style.transform  = 'translateX(4px)';
+                    e.currentTarget.style.boxShadow  = '0 0 24px rgba(247,231,206,0.12)';
+                  }}
+                  onMouseLeave={(e) => {
+                    e.currentTarget.style.transform  = 'translateX(0)';
+                    e.currentTarget.style.boxShadow  = 'none';
+                  }}
+                >
+                  <span style={{
+                    fontSize: '1.1rem', color: 'var(--gold)',
+                    flexShrink: 0, marginTop: '2px',
+                  }}>
+                    {icon}
+                  </span>
                   <div>
-                    <h4 className="highlight-title">{title}</h4>
-                    <p className="highlight-desc">{desc}</p>
+                    <h4 style={{
+                      fontFamily:  "'DM Sans', sans-serif",
+                      fontSize:    '0.92rem', fontWeight: 700,
+                      color:       'var(--text-primary)',
+                      marginBottom:'0.2rem', letterSpacing: '0.01em',
+                    }}>
+                      {title}
+                    </h4>
+                    <p style={{
+                      fontFamily: "'DM Sans', sans-serif",
+                      fontSize:   '0.85rem', color: 'var(--text-secondary)',
+                      lineHeight: 1.6, margin: 0,
+                    }}>
+                      {desc}
+                    </p>
                   </div>
                 </div>
               ))}
             </div>
 
-            {/* CTA */}
-            <div className="about-cta">
-              <a href="#contact" className="btn btn-primary px-7 py-3 text-sm">
+            {/* CTA buttons */}
+            <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.875rem', marginTop: '0.5rem' }}>
+              <a
+                href="#contact"
+                style={{
+                  display:        'inline-flex',
+                  alignItems:     'center',
+                  justifyContent: 'center',
+                  padding:        '0.7rem 1.6rem',
+                  borderRadius:   '0.75rem',
+                  background:     'linear-gradient(135deg, #F7E7CE 0%, #e0c9a6 100%)',
+                  color:          'var(--bg-base)',
+                  fontFamily:     "'DM Sans', sans-serif",
+                  fontSize:       '0.78rem', fontWeight: 700,
+                  letterSpacing:  '0.05em', textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  boxShadow:      '0 0 24px rgba(247,231,206,0.18)',
+                  transition:     'all 0.25s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #fff3e0 0%, #F7E7CE 100%)';
+                  e.currentTarget.style.transform  = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow  = '0 0 40px rgba(247,231,206,0.25)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'linear-gradient(135deg, #F7E7CE 0%, #e0c9a6 100%)';
+                  e.currentTarget.style.transform  = 'translateY(0)';
+                  e.currentTarget.style.boxShadow  = '0 0 24px rgba(247,231,206,0.18)';
+                }}
+              >
                 Work With Me
               </a>
-              <a href="#skills" className="btn btn-outline px-7 py-3 text-sm">
+              <a
+                href="#skills"
+                style={{
+                  display:        'inline-flex',
+                  alignItems:     'center',
+                  justifyContent: 'center',
+                  padding:        '0.7rem 1.6rem',
+                  borderRadius:   '0.75rem',
+                  background:     'transparent',
+                  color:          'var(--gold)',
+                  border:         '1.5px solid var(--gold)',
+                  fontFamily:     "'DM Sans', sans-serif",
+                  fontSize:       '0.78rem', fontWeight: 600,
+                  letterSpacing:  '0.05em', textTransform: 'uppercase',
+                  textDecoration: 'none',
+                  transition:     'all 0.25s ease',
+                }}
+                onMouseEnter={(e) => {
+                  e.currentTarget.style.background = 'rgba(247,231,206,0.08)';
+                  e.currentTarget.style.transform  = 'translateY(-2px)';
+                  e.currentTarget.style.boxShadow  = '0 0 24px rgba(247,231,206,0.15)';
+                }}
+                onMouseLeave={(e) => {
+                  e.currentTarget.style.background = 'transparent';
+                  e.currentTarget.style.transform  = 'translateY(0)';
+                  e.currentTarget.style.boxShadow  = 'none';
+                }}
+              >
                 View My Skills
               </a>
             </div>
           </div>
         </div>
 
-        {/* ── Stats row ────────────────────────────────────────── */}
-        <div className="about-stats">
+        {/* ── Stats row ──────────────────────────────────────── */}
+        <div style={{
+          display:             'grid',
+          gridTemplateColumns: 'repeat(4, 1fr)',
+          gap:                 '1.25rem',
+        }}
+          className="about-stats-grid"
+        >
           {stats.map(({ value, label }) => (
-            <div key={label} className="stat-card card">
-              <div className="stat-number">{value}</div>
-              <div className="stat-label">{label}</div>
+            <div
+              key={label}
+              style={{
+                background:   'var(--bg-elevated)',
+                border:       '1px solid var(--lime-border)',
+                borderRadius: '0.875rem',
+                padding:      '1.5rem 1rem',
+                textAlign:    'center',
+                transition:   'all 0.3s ease',
+                boxShadow:    '0 4px 24px rgba(0,0,0,0.3)',
+              }}
+              onMouseEnter={(e) => {
+                e.currentTarget.style.borderColor = 'rgba(247,231,206,0.25)';
+                e.currentTarget.style.boxShadow   = '0 0 24px rgba(247,231,206,0.15)';
+                e.currentTarget.style.transform   = 'translateY(-3px)';
+              }}
+              onMouseLeave={(e) => {
+                e.currentTarget.style.borderColor = 'var(--lime-border)';
+                e.currentTarget.style.boxShadow   = '0 4px 24px rgba(0,0,0,0.3)';
+                e.currentTarget.style.transform   = 'translateY(0)';
+              }}
+            >
+              <div style={{
+                fontFamily:   "'Cormorant Garamond', Georgia, serif",
+                fontSize:     'clamp(1.8rem, 4vw, 2.4rem)',
+                fontWeight:   700,
+                color:        'var(--gold)',
+                lineHeight:   1,
+                marginBottom: '0.4rem',
+              }}>
+                {value}
+              </div>
+              <div style={{
+                fontFamily:    "'DM Sans', sans-serif",
+                fontSize:      '0.72rem', fontWeight: 600,
+                letterSpacing: '0.08em', textTransform: 'uppercase',
+                color:         'var(--text-muted)',
+              }}>
+                {label}
+              </div>
             </div>
           ))}
         </div>
 
       </div>
+
+      {/* Responsive styles */}
+      <style>{`
+        @media (max-width: 900px) {
+          .about-grid {
+            grid-template-columns: 1fr !important;
+          }
+        }
+        @media (max-width: 640px) {
+          .about-stats-grid {
+            grid-template-columns: repeat(2, 1fr) !important;
+          }
+        }
+      `}</style>
     </section>
   );
 };
