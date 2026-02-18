@@ -1,199 +1,138 @@
-/* ── Skills Section ──────────────────────────────────────────────
-   Component-specific styles. Global tokens live in index.css.
-─────────────────────────────────────────────────────────────── */
+// src/components/Skills.jsx
+import { useState, useEffect, useRef } from 'react';
+import './Skills.css';
 
-/* ── Section wrapper ─────────────────────────────────────────── */
-.skills-section {
-  background-color: var(--bg-base);
-  position: relative;
-  overflow: hidden;
-}
+const skills = {
+  technical: [
+    { name: 'Data Analysis',  level: 95, icon: '◈' },
+    { name: 'SQL',            level: 90, icon: '⬡' },
+    { name: 'Python',         level: 85, icon: '◎' },
+    { name: 'Tableau',        level: 88, icon: '◇' },
+    { name: 'Power BI',       level: 87, icon: '◆' },
+    { name: 'Excel',          level: 92, icon: '▣' },
+  ],
+  professional: [
+    { name: 'Requirements Gathering',  level: 92, icon: '◈' },
+    { name: 'Process Improvement',     level: 88, icon: '⬡' },
+    { name: 'Strategic Planning',      level: 85, icon: '◎' },
+    { name: 'Stakeholder Management',  level: 90, icon: '◇' },
+    { name: 'Project Management',      level: 87, icon: '◆' },
+    { name: 'Communication',           level: 93, icon: '▣' },
+  ],
+};
 
-/* Radial gold shimmer top-right */
-.skills-section::before {
-  content: '';
-  position: absolute;
-  top: -80px;
-  right: -80px;
-  width: 420px;
-  height: 420px;
-  border-radius: 50%;
-  background: radial-gradient(circle, rgba(247, 231, 206, 0.055) 0%, transparent 65%);
-  filter: blur(48px);
-  pointer-events: none;
-}
+const categories = [
+  { key: 'technical',    label: 'Technical Skills'    },
+  { key: 'professional', label: 'Professional Skills' },
+];
 
-/* ── Header ──────────────────────────────────────────────────── */
-.skills-header {
-  text-align: center;
-  margin-bottom: 3rem;
-}
+export default function Skills() {
+  const [selectedCategory, setSelectedCategory] = useState('technical');
+  const [animated, setAnimated]                 = useState(false);
+  const [displayedBars, setDisplayedBars]       = useState({});
+  const sectionRef = useRef(null);
 
-.skills-eyebrow {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.75rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--gold-deep);
-  margin-bottom: 0.6rem;
-}
+  // Animate bars when section enters viewport
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setAnimated(true); },
+      { threshold: 0.2 }
+    );
+    if (sectionRef.current) observer.observe(sectionRef.current);
+    return () => observer.disconnect();
+  }, []);
 
-/* ── Tab switcher ────────────────────────────────────────────── */
-.skills-tabs {
-  display: flex;
-  justify-content: center;
-  gap: 0.75rem;
-  margin-bottom: 3rem;
-  flex-wrap: wrap;
-}
+  // Re-trigger bar animation on category switch
+  useEffect(() => {
+    setDisplayedBars({});
+    const timer = setTimeout(() => {
+      const widths = {};
+      skills[selectedCategory].forEach((s) => { widths[s.name] = s.level; });
+      setDisplayedBars(widths);
+    }, 80);
+    return () => clearTimeout(timer);
+  }, [selectedCategory, animated]);
 
-.skills-tab {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.8rem;
-  font-weight: 600;
-  letter-spacing: 0.07em;
-  text-transform: uppercase;
-  padding: 0.6rem 1.75rem;
-  border-radius: 9999px;
-  border: 1.5px solid var(--lime-border);
-  background: transparent;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: all 0.25s ease;
-}
+  return (
+    <section className="skills-section" id="skills" ref={sectionRef}>
+      <div className="section-container">
 
-.skills-tab:hover {
-  border-color: var(--gold);
-  color: var(--gold);
-  background: rgba(247, 231, 206, 0.06);
-}
+        {/* ── Header ─────────────────────────────────────────── */}
+        <div className="skills-header">
+          <p className="skills-eyebrow">What I Bring</p>
+          <h2 className="heading-2">Skills &amp; Expertise</h2>
+          <div className="section-divider" />
+        </div>
 
-.skills-tab--active {
-  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-dark) 100%);
-  border-color: transparent;
-  color: var(--bg-base);
-  font-weight: 700;
-  box-shadow: var(--shadow-gold);
-}
+        {/* ── Tab switcher ───────────────────────────────────── */}
+        <div className="skills-tabs">
+          {categories.map(({ key, label }) => (
+            <button
+              key={key}
+              className={`skills-tab ${selectedCategory === key ? 'skills-tab--active' : ''}`}
+              onClick={() => setSelectedCategory(key)}
+            >
+              {label}
+            </button>
+          ))}
+        </div>
 
-.skills-tab--active:hover {
-  background: linear-gradient(135deg, #fff3e0 0%, var(--gold) 100%);
-  color: var(--bg-base);
-  box-shadow: var(--shadow-gold-lg);
-}
+        {/* ── Skills grid ────────────────────────────────────── */}
+        <div className="skills-grid">
+          {skills[selectedCategory].map((skill, index) => (
+            <div
+              key={skill.name}
+              className="skill-card card"
+              style={{ animationDelay: `${index * 0.08}s` }}
+            >
+              {/* Card header */}
+              <div className="skill-card-header">
+                <div className="skill-name-row">
+                  <span className="skill-icon">{skill.icon}</span>
+                  <span className="skill-name">{skill.name}</span>
+                </div>
+                <span className="skill-percent">
+                  {displayedBars[skill.name] ?? 0}%
+                </span>
+              </div>
 
-/* ── Skills grid ─────────────────────────────────────────────── */
-.skills-grid {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: 1.25rem;
-  margin-bottom: 3rem;
-}
+              {/* Progress bar */}
+              <div className="skill-bar-track">
+                <div
+                  className="skill-bar-fill"
+                  style={{
+                    width: animated ? `${displayedBars[skill.name] ?? 0}%` : '0%',
+                    transitionDelay: `${index * 0.08}s`,
+                  }}
+                />
+              </div>
 
-@media (max-width: 768px) {
-  .skills-grid {
-    grid-template-columns: 1fr;
-  }
-}
+              {/* Proficiency label */}
+              <span className="skill-tier">
+                {skill.level >= 90
+                  ? 'Expert'
+                  : skill.level >= 85
+                  ? 'Advanced'
+                  : 'Proficient'}
+              </span>
+            </div>
+          ))}
+        </div>
 
-/* ── Skill card ──────────────────────────────────────────────── */
-.skill-card {
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  animation: fade-in-up 0.5s cubic-bezier(0.4, 0, 0.2, 1) both;
-}
+        {/* ── Bottom callout ─────────────────────────────────── */}
+        <div className="skills-callout card-glass">
+          <p className="skills-callout-text">
+            Continuously expanding my toolkit — currently deepening expertise in{' '}
+            <span className="text-gold font-semibold">AI-driven analytics</span>{' '}
+            and{' '}
+            <span className="text-gold font-semibold">process automation</span>.
+          </p>
+          <a href="#contact" className="btn btn-primary px-6 py-3 text-sm">
+            Let's Collaborate
+          </a>
+        </div>
 
-/* Card header row */
-.skill-card-header {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
+      </div>
+    </section>
+  );
 }
-
-.skill-name-row {
-  display: flex;
-  align-items: center;
-  gap: 0.6rem;
-}
-
-.skill-icon {
-  font-size: 1rem;
-  color: var(--gold-deep);
-  flex-shrink: 0;
-}
-
-.skill-name {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
-  font-weight: 600;
-  color: var(--text-primary);
-  letter-spacing: 0.01em;
-}
-
-.skill-percent {
-  font-family: 'Cormorant Garamond', Georgia, serif;
-  font-size: 1.1rem;
-  font-weight: 700;
-  color: var(--gold);
-  letter-spacing: -0.01em;
-  flex-shrink: 0;
-}
-
-/* Progress bar track */
-.skill-bar-track {
-  width: 100%;
-  height: 5px;
-  background: var(--lime-muted);
-  border-radius: 3px;
-  overflow: hidden;
-}
-
-/* Progress bar fill — animated */
-.skill-bar-fill {
-  height: 100%;
-  border-radius: 3px;
-  background: linear-gradient(90deg, var(--gold-deep) 0%, var(--gold) 100%);
-  box-shadow: 0 0 8px rgba(247, 231, 206, 0.4);
-  transition: width 0.9s cubic-bezier(0.4, 0, 0.2, 1);
-}
-
-/* Proficiency tier label */
-.skill-tier {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.68rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: var(--text-muted);
-  align-self: flex-end;
-}
-
-/* ── Bottom callout ──────────────────────────────────────────── */
-.skills-callout {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.5rem;
-  padding: 1.5rem 2rem;
-  border-radius: 1rem;
-  flex-wrap: wrap;
-}
-
-.skills-callout-text {
-  font-family: 'DM Sans', sans-serif;
-  font-size: 0.95rem;
-  color: var(--text-secondary);
-  line-height: 1.7;
-  flex: 1;
-  min-width: 220px;
-}
-
-@media (max-width: 600px) {
-  .skills-callout {
-    flex-direction: column;
-    text-align: center;
-  }
-}
- 
