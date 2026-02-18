@@ -45,7 +45,7 @@ export default App;
  * <BrowserRouter> and add <Routes> inside Home.
  */
 
-/**export default function App() {
+export default function App() {
   return (
     <div className="App">
 
@@ -73,4 +73,3 @@ export default App;
     </div>
   );
 }
-      */
