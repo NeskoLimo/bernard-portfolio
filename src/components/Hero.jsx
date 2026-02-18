@@ -3,11 +3,11 @@ import { useEffect, useRef, useState } from 'react';
 
 // ── Typing animation roles ────────────────────────────────────
 const ROLES = [
-  'Business Analyst',
-  'Agile Practitioner',
+  'Business & System Analyst',
+  'Agile & Scrum Practitioner',
   'Process Optimizer',
   'Technical Service Lead',
-  'Digital Transformation Lead',
+  'Digital Transformation Champion',
 ];
 
 // ── Floating background fragments ────────────────────────────
