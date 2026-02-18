@@ -30,12 +30,12 @@ const Hero = () => {
     View Full Portfolio (Notion)
   </a>
   <a
-    href="https://x.com/Nesko_Bernard"
+    href="https://www.linkedin.com/in/bernard-limo-77937b138/"
     target="_blank"
     rel="noopener noreferrer"
     className="bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
   >
-    Follow on X (@Nesko_Bernard)
+    Follow on LinkedIn (@Bernard_Limo)
   </a>
 </div>
       </div>
