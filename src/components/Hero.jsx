@@ -14,13 +14,14 @@ const Hero = () => {
         <p className="text-xl md:text-2xl mb-10 max-w-3xl mx-auto">
           Bridging business needs and technology solutions in banking, insurance, healthcare, and beyond. Transforming requirements into impactful outcomes.
         </p>
-      <div className="flex flex-col sm:flex-row gap-6 justify-center">
+<div className="flex flex-col sm:flex-row gap-6 justify-center items-center">
   <a
     href="#contact"
     className="bg-blue-600 hover:bg-blue-700 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
   >
     Get in Touch
   </a>
+
   <a
     href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a"
     target="_blank"
@@ -29,13 +30,16 @@ const Hero = () => {
   >
     View Full Portfolio (Notion)
   </a>
+
+  <span className="hidden sm:inline text-gray-400 text-xl font-bold"> | </span>
+
   <a
     href="https://www.linkedin.com/in/bernard-limo-77937b138/"
     target="_blank"
     rel="noopener noreferrer"
-    className="bg-black hover:bg-gray-800 text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
+    className="bg-[#0A66C2] hover:bg-[#004182] text-white font-bold py-4 px-8 rounded-lg transition duration-300 shadow-lg"
   >
-    Follow on LinkedIn (@Bernard_Limo)
+    Follow Me on LinkedIn
   </a>
 </div>
       </div>
