@@ -1,310 +1,144 @@
 // src/components/Navbar.jsx
-import { useState, useEffect, useRef } from 'react';
-import Button from './Button';
+import React, { useState, useEffect } from 'react';
 
-const navLinks = [
-  { label: 'Home',    href: '#home'    },
-  { label: 'About',    href: '#about'    },
-  { label: 'Skills',   href: '#skills'   },
-  { label: 'Certifications',    href: '#certifications'    },
-  { label: 'Projects', href: '#projects' },
-  { label: 'Blog',     href: '#blog'     },
-  { label: 'Contact',  href: '#contact'  },
-];
+const Navbar = () => {
+  const [isOpen, setIsOpen] = useState(false);
+  const [activeSection, setActiveSection] = useState('home');
 
-export default function Navbar() {
-  const [scrolled,     setScrolled]     = useState(false);
-  const [activeSection, setActiveSection] = useState('hero');
-  const [menuOpen,     setMenuOpen]     = useState(false);
-  const menuRef = useRef(null);
+  const navLinks = [
+    { name: 'HOME', href: '#home' },
+    { name: 'ABOUT', href: '#about' },
+    { name: 'SKILLS', href: '#skills' },
+    { name: 'CERTIFICATIONS', href: '#certifications' },
+    { name: 'PROJECTS', href: '#projects' },
+    { name: 'BLOG', href: '#blog' },
+    { name: 'CONTACT', href: '#contact' },
+  ];
 
-  // Shrink navbar on scroll
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 48);
-    window.addEventListener('scroll', onScroll, { passive: true });
-    return () => window.removeEventListener('scroll', onScroll);
-  }, []);
-
-  // Highlight active section via IntersectionObserver
-  useEffect(() => {
-    const ids = ['hero', ...navLinks.map((l) => l.href.slice(1))];
-    const observers = ids.map((id) => {
-      const el = document.getElementById(id);
-      if (!el) return null;
-      const observer = new IntersectionObserver(
-        ([entry]) => { if (entry.isIntersecting) setActiveSection(id); },
-        { threshold: 0.35 }
-      );
-      observer.observe(el);
-      return observer;
-    });
-    return () => observers.forEach((o) => o?.disconnect());
-  }, []);
-
-  // Close menu on outside click
-  useEffect(() => {
-    if (!menuOpen) return;
-    const handler = (e) => {
-      if (menuRef.current && !menuRef.current.contains(e.target)) {
-        setMenuOpen(false);
-      }
-    };
-    document.addEventListener('mousedown', handler);
-    return () => document.removeEventListener('mousedown', handler);
-  }, [menuOpen]);
-
-  // Lock body scroll when mobile menu is open
-  useEffect(() => {
-    document.body.style.overflow = menuOpen ? 'hidden' : '';
-    return () => { document.body.style.overflow = ''; };
-  }, [menuOpen]);
-
-  const handleNavClick = (href) => {
-    setMenuOpen(false);
-    const el = document.querySelector(href);
-    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  // Smooth scroll handler
+  const scrollToSection = (e, href) => {
+    e.preventDefault();
+    const targetId = href.replace('#', '');
+    const element = document.getElementById(targetId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    }
+    setIsOpen(false); // Close mobile menu
   };
 
+  // Active section detection
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            setActiveSection(entry.target.id);
+          }
+        });
+      },
+      { rootMargin: '-100px 0px -50% 0px', threshold: 0.1 }
+    );
+
+    navLinks.forEach((link) => {
+      const section = document.getElementById(link.href.replace('#', ''));
+      if (section) observer.observe(section);
+    });
+
+    return () => observer.disconnect();
+  }, []);
+
   return (
-    <>
-      <header
-        style={{
-          position:        'fixed',
-          top:             0, left: 0, right: 0,
-          zIndex:          50,
-          transition:      'all 0.35s ease',
-          background:      scrolled
-            ? 'rgba(13,26,13,0.88)'
-            : 'transparent',
-          backdropFilter:  scrolled ? 'blur(16px) saturate(160%)' : 'none',
-          WebkitBackdropFilter: scrolled ? 'blur(16px) saturate(160%)' : 'none',
-          borderBottom:    scrolled
-            ? '1px solid rgba(247,231,206,0.08)'
-            : '1px solid transparent',
-          boxShadow:       scrolled
-            ? '0 2px 24px rgba(0,0,0,0.4)'
-            : 'none',
-          padding:         scrolled ? '0.75rem 0' : '1.25rem 0',
-        }}
-      >
-        <div
-          style={{
-            maxWidth:      '80rem',
-            margin:        '0 auto',
-            padding:       '0 1.5rem',
-            display:       'flex',
-            alignItems:    'center',
-            justifyContent:'space-between',
-          }}
-        >
-          {/* ── Logo ───────────────────────────────────────── */}
+    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-gold/30 shadow-lg">
+      <div className="max-w-7xl mx-auto px-6 py-4">
+        <div className="flex items-center justify-between">
+          {/* Logo / Name */}
           <a
-            href="#hero"
-            onClick={(e) => { e.preventDefault(); handleNavClick('#hero'); }}
-            style={{ textDecoration: 'none', display: 'flex', alignItems: 'center', gap: '0.5rem' }}
+            href="#home"
+            onClick={(e) => scrollToSection(e, '#home')}
+            className="flex items-center gap-3"
           >
-            {/* Monogram mark */}
-            <div style={{
-              width: '2rem', height: '2rem',
-              borderRadius: '0.5rem',
-              background:   'linear-gradient(135deg, var(--gold) 0%, var(--gold-deep) 100%)',
-              display:      'flex', alignItems: 'center', justifyContent: 'center',
-              flexShrink:   0,
-            }}>
-              <span style={{
-                fontFamily: "'Cormorant Garamond', Georgia, serif",
-                fontSize:   '1rem', fontWeight: 700,
-                color:      'var(--bg-base)', lineHeight: 1,
-              }}>
-                BL
-              </span>
+            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-lime-600 to-lime-400 flex items-center justify-center text-slate-950 font-bold text-xl shadow-gold-glow">
+              BL
             </div>
-            <div>
-              <div style={{
-                fontFamily:  "'Cormorant Garamond', Georgia, serif",
-                fontSize:    '1.05rem', fontWeight: 700,
-                color:       'var(--text-primary)', lineHeight: 1.1,
-                letterSpacing: '-0.01em',
-              }}>
-                Bernard Limo
-              </div>
-              <div style={{
-                fontFamily:  "'DM Sans', sans-serif",
-                fontSize:    '0.62rem', fontWeight: 600,
-                color:       'var(--text-muted)', letterSpacing: '0.1em',
-                textTransform: 'uppercase',
-              }}>
-                Business Analyst
-              </div>
-            </div>
+            <span className="text-xl md:text-2xl font-bold text-white tracking-tight">
+              Bernard Limo
+            </span>
           </a>
 
-          {/* ── Desktop nav ────────────────────────────────── */}
-          <nav
-            style={{ display: 'flex', alignItems: 'center', gap: '0.25rem' }}
-            className="desktop-nav"
-          >
-            {navLinks.map(({ label, href }) => {
-              const isActive = activeSection === href.slice(1);
-              return (
-                <a
-                  key={href}
-                  href={href}
-                  onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
-                  style={{
-                    fontFamily:    "'DM Sans', sans-serif",
-                    fontSize:      '0.78rem', fontWeight: isActive ? 700 : 500,
-                    letterSpacing: '0.07em', textTransform: 'uppercase',
-                    color:         isActive ? 'var(--gold)' : 'var(--text-secondary)',
-                    textDecoration:'none',
-                    padding:       '0.4rem 0.75rem',
-                    borderRadius:  '0.5rem',
-                    background:    isActive ? 'rgba(247,231,206,0.08)' : 'transparent',
-                    transition:    'all 0.2s ease',
-                    position:      'relative',
-                  }}
-                  onMouseEnter={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'var(--gold)';
-                      e.currentTarget.style.background = 'rgba(247,231,206,0.06)';
-                    }
-                  }}
-                  onMouseLeave={(e) => {
-                    if (!isActive) {
-                      e.currentTarget.style.color = 'var(--text-secondary)';
-                      e.currentTarget.style.background = 'transparent';
-                    }
-                  }}
-                >
-                  {label}
-                  {isActive && (
-                    <span style={{
-                      position:     'absolute',
-                      bottom:       '2px', left: '50%',
-                      transform:    'translateX(-50%)',
-                      width:        '16px', height: '2px',
-                      background:   'var(--gold)',
-                      borderRadius: '1px',
-                    }} />
-                  )}
-                </a>
-              );
-            })}
-
-            {/* CTA button */}
-            <div style={{ marginLeft: '0.75rem' }}>
-              <Button
-                href="#contact"
-                size="sm"
-                onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
+          {/* Desktop Menu */}
+          <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className={`nav-link text-sm lg:text-base font-medium uppercase tracking-wider transition-all duration-300 ${
+                  activeSection === link.href.replace('#', '')
+                    ? 'text-gold font-semibold border-b-2 border-gold pb-1'
+                    : 'text-slate-300 hover:text-gold'
+                }`}
               >
-                Hire Me
-              </Button>
-            </div>
-          </nav>
+                {link.name}
+              </a>
+            ))}
 
-          {/* ── Mobile hamburger ───────────────────────────── */}
+            {/* Hire Me Button */}
+            <a
+              href="#contact"
+              onClick={(e) => scrollToSection(e, '#contact')}
+              className="btn btn-gold text-sm lg:text-base px-6 py-2.5 uppercase tracking-wider font-semibold shadow-gold-glow hover:shadow-gold-glow-lg"
+            >
+              Hire Me
+            </a>
+          </div>
+
+          {/* Mobile Hamburger */}
           <button
-            className="mobile-menu-btn"
-            onClick={() => setMenuOpen((v) => !v)}
-            aria-label={menuOpen ? 'Close menu' : 'Open menu'}
-            style={{
-              display:    'none',
-              background: 'transparent',
-              border:     '1px solid var(--lime-border)',
-              borderRadius:'0.5rem',
-              padding:    '0.45rem 0.6rem',
-              cursor:     'pointer',
-              color:      'var(--gold)',
-              transition: 'all 0.2s ease',
-            }}
+            className="md:hidden text-gold focus:outline-none"
+            onClick={() => setIsOpen(!isOpen)}
+            aria-label="Toggle menu"
           >
-            {menuOpen ? (
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="3" y1="3" x2="15" y2="15" />
-                <line x1="15" y1="3" x2="3" y2="15" />
-              </svg>
-            ) : (
-              <svg width="18" height="18" viewBox="0 0 18 18" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round">
-                <line x1="2" y1="5"  x2="16" y2="5"  />
-                <line x1="2" y1="9"  x2="16" y2="9"  />
-                <line x1="2" y1="13" x2="16" y2="13" />
-              </svg>
-            )}
+            <svg className="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              {isOpen ? (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M6 18L18 6M6 6l12 12" />
+              ) : (
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4 6h16M4 12h16M4 18h16" />
+              )}
+            </svg>
           </button>
         </div>
-      </header>
 
-      {/* ── Mobile menu drawer ─────────────────────────────── */}
-      <div
-        ref={menuRef}
-        style={{
-          position:   'fixed',
-          top: 0, left: 0, right: 0, bottom: 0,
-          zIndex:     49,
-          background: 'rgba(13,26,13,0.97)',
-          backdropFilter: 'blur(20px)',
-          display:    'flex',
-          flexDirection: 'column',
-          alignItems: 'center',
-          justifyContent: 'center',
-          gap:        '0.5rem',
-          opacity:    menuOpen ? 1 : 0,
-          pointerEvents: menuOpen ? 'all' : 'none',
-          transition: 'opacity 0.3s ease',
-        }}
-        className="mobile-drawer"
-      >
-        {navLinks.map(({ label, href }, i) => {
-          const isActive = activeSection === href.slice(1);
-          return (
+        {/* Mobile Menu */}
+        {isOpen && (
+          <div className="md:hidden mt-4 pb-6 space-y-4 border-t border-gold/20 pt-4">
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => scrollToSection(e, link.href)}
+                className={`block py-3 px-4 rounded-lg text-base font-medium uppercase tracking-wider transition-all ${
+                  activeSection === link.href.replace('#', '')
+                    ? 'bg-lime-dark/30 text-gold font-semibold'
+                    : 'text-slate-300 hover:bg-slate-800/50 hover:text-gold'
+                }`}
+              >
+                {link.name}
+              </a>
+            ))}
+
+            {/* Hire Me in mobile menu */}
             <a
-              key={href}
-              href={href}
-              onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
-              style={{
-                fontFamily:    "'Cormorant Garamond', Georgia, serif",
-                fontSize:      'clamp(1.6rem, 5vw, 2.2rem)',
-                fontWeight:    700,
-                color:         isActive ? 'var(--gold)' : 'var(--text-secondary)',
-                textDecoration:'none',
-                letterSpacing: '-0.01em',
-                padding:       '0.5rem 2rem',
-                transition:    'color 0.2s ease',
-                opacity:       menuOpen ? 1 : 0,
-                transform:     menuOpen ? 'translateY(0)' : 'translateY(16px)',
-                transitionDelay: `${i * 0.05}s`,
-              }}
-              onMouseEnter={(e) => { e.currentTarget.style.color = 'var(--gold)'; }}
-              onMouseLeave={(e) => { e.currentTarget.style.color = isActive ? 'var(--gold)' : 'var(--text-secondary)'; }}
+              href="#contact"
+              onClick={(e) => scrollToSection(e, '#contact')}
+              className="block py-3 px-4 rounded-lg text-base font-semibold uppercase tracking-wider bg-gold text-slate-950 hover:bg-gold-dark transition-all shadow-md"
             >
-              {label}
+              Hire Me
             </a>
-          );
-        })}
-
-        <div style={{ marginTop: '1.5rem' }}>
-          <Button
-            href="#contact"
-            size="lg"
-            onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
-          >
-            Hire Me
-          </Button>
-        </div>
+          </div>
+        )}
       </div>
-
-      {/* ── Responsive styles ──────────────────────────────── */}
-      <style>{`
-        @media (max-width: 768px) {
-          .desktop-nav  { display: none !important; }
-          .mobile-menu-btn { display: flex !important; }
-        }
-        @media (min-width: 769px) {
-          .mobile-drawer { display: none !important; }
-        }
-      `}</style>
-    </>
+    </nav>
   );
-}
+};
 
+export default Navbar;
