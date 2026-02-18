@@ -44,32 +44,3 @@ export default App;
  * If you add pages later (e.g. a blog post view), wrap this in
  * <BrowserRouter> and add <Routes> inside Home.
  */
-
-export default function App() {
-  return (
-    <div className="App">
-
-      {/* ── Ambient background orbs ─────────────────────────
-          Fixed behind all content. Defined in App.css.
-          Subtle gold (top-right) + lime (bottom-left) glows
-          that add depth to the dark lime-green background.
-      ─────────────────────────────────────────────────── */}
-      <div className="bg-orb bg-orb-gold" aria-hidden="true" />
-      <div className="bg-orb bg-orb-lime" aria-hidden="true" />
-
-      {/* ── Navigation ──────────────────────────────────────
-          Fixed header — sits above all sections.
-          Renders outside <main> intentionally.
-      ─────────────────────────────────────────────────── */}
-      <Navbar />
-
-      {/* ── Page content ────────────────────────────────────
-          Home renders all sections inside a <main> tag.
-          Navbar height is ~64px — sections use scroll-margin
-          so anchored links land below the fixed nav.
-      ─────────────────────────────────────────────────── */}
-      <Home />
-
-    </div>
-  );
-}
