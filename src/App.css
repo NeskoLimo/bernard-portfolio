@@ -15,6 +15,9 @@
 section {
   min-height: auto;
   position: relative;
+  /* Offset anchored scroll links so content lands below the
+     fixed Navbar (~64px tall). Increase if navbar grows. */
+  scroll-margin-top: 72px;
 }
 
 /* Alternating section backgrounds for visual rhythm */
