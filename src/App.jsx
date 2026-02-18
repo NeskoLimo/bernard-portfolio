@@ -1,8 +1,29 @@
-// src/App.jsx
-import './App.css';
-import Navbar     from './components/Navbar';
-import Home       from './components/Home';
+// src/App.jsx (example)
+import Navbar from './components/Navbar';
+import Hero from './components/Hero';           // ← This file
+import About from './components/About';
+import Experience from './components/Experience';
+import Skills from './components/Skills';
+import Projects from './components/Projects';
 import Certifications from './components/Certifications';
+// ... other imports
+
+function App() {
+  return (
+    <div className="min-h-screen bg-slate-950 text-white">
+      <Navbar />
+      <Hero />                           // ← Right here (landing section)
+      <About />
+      <Experience />
+      <Skills />
+      <Projects />
+      <Certifications />
+      {/* ... */}
+    </div>
+  );
+}
+
+export default App;
 
 /**
  * App
@@ -24,7 +45,7 @@ import Certifications from './components/Certifications';
  * <BrowserRouter> and add <Routes> inside Home.
  */
 
-export default function App() {
+/**export default function App() {
   return (
     <div className="App">
 
@@ -52,3 +73,4 @@ export default function App() {
     </div>
   );
 }
+      */
