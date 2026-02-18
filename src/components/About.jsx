@@ -44,10 +44,11 @@ const About = () => {
           {/* Left — photo */}
           <div className="about-image-col">
             <div className="about-image-frame">
-              <div className="about-image-placeholder">
-                <span className="placeholder-icon">◉</span>
-                <span className="placeholder-label">Your Photo Here</span>
-              </div>
+              <img
+  src="/limo.jpg"
+  alt="Bernard Limo — Business Analyst"
+  style={{ objectFit: 'cover', objectPosition: 'center top', ... }}
+/>
               {/* Decorative corner accents */}
               <div className="frame-corner frame-corner--tl" />
               <div className="frame-corner frame-corner--br" />
