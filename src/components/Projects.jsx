@@ -8,16 +8,18 @@ const projects = [
       'Full-featured REST API for tracking personal expenses, categories, and reports. Built with Python/FastAPI, PostgreSQL, JWT authentication, and deployed on Render.',
     tech: ['Python', 'FastAPI', 'PostgreSQL', 'JWT', 'Render'],
     liveDemo: 'https://your-expense-api.onrender.com/docs',
+    github: null,
     category: 'Backend',
   },
-  // Add more projects below as needed:
-  // {
-  //   title: 'Another Project',
-  //   description: 'Short description...',
-  //   tech: ['React', 'Tailwind', 'Node.js'],
-  //   liveDemo: 'https://...',
-  //   category: 'Frontend',
-  // },
+  {
+    title: 'GitHub Portfolio',
+    description:
+      'Explore my full collection of repositories including data analysis scripts, automation tools, API projects, and business intelligence work. All source code is open and available for review.',
+    tech: ['Python', 'SQL', 'FastAPI', 'Data Analysis', 'Open Source'],
+    liveDemo: null,
+    github: 'https://github.com/NeskoLimo',
+    category: 'Analytics',
+  },
 ];
 
 const categoryColors = {
@@ -48,7 +50,8 @@ function ProjectCard({ project, index }) {
       style={{
         opacity: visible ? 1 : 0,
         transform: visible ? 'translateY(0)' : 'translateY(28px)',
-        transition: `opacity 0.55s ease ${index * 0.1}s, transform 0.55s ease ${index * 0.1}s`,
+        transition: 'opacity 0.55s ease, transform 0.55s ease',
+        transitionDelay: index * 0.1 + 's',
         background: 'var(--bg-surface)',
         border: '1px solid var(--lime-border)',
         borderRadius: '1rem',
@@ -58,7 +61,6 @@ function ProjectCard({ project, index }) {
         height: '100%',
         position: 'relative',
         boxShadow: '0 4px 24px rgba(0,0,0,0.4)',
-        transition2: 'box-shadow 0.3s ease, border-color 0.3s ease, transform 0.3s ease',
       }}
       onMouseEnter={(e) => {
         e.currentTarget.style.borderColor = 'rgba(247,231,206,0.28)';
@@ -92,7 +94,7 @@ function ProjectCard({ project, index }) {
             padding: '0.25rem 0.75rem',
             borderRadius: '9999px',
             background: catStyle.bg,
-            border: `1px solid ${catStyle.border}`,
+            border: '1px solid ' + catStyle.border,
             color: catStyle.text,
           }}>
             {project.category ?? 'Project'}
@@ -134,10 +136,7 @@ function ProjectCard({ project, index }) {
         {/* Tech tags */}
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem', marginTop: '0.25rem' }}>
           {project.tech.map((tag) => (
-            <span
-              key={tag}
-              className="tag tag-gold"
-            >
+            <span key={tag} className="tag tag-gold">
               {tag}
             </span>
           ))}
@@ -149,16 +148,32 @@ function ProjectCard({ project, index }) {
         padding: '1.25rem 2rem 1.75rem',
         borderTop: '1px solid var(--lime-border)',
         background: 'var(--bg-elevated)',
+        display: 'flex',
+        gap: '0.75rem',
+        flexWrap: 'wrap',
       }}>
-        <a
-          href={project.liveDemo}
-          target="_blank"
-          rel="noopener noreferrer"
-          className="btn btn-primary"
-          style={{ width: '100%', justifyContent: 'center', padding: '0.75rem 1.5rem' }}
-        >
-          Live Demo &nbsp;→
-        </a>
+        {project.liveDemo && (
+          <a
+            href={project.liveDemo}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-primary"
+            style={{ flex: 1, justifyContent: 'center', padding: '0.75rem 1.5rem' }}
+          >
+            Live Demo
+          </a>
+        )}
+        {project.github && (
+          <a
+            href={project.github}
+            target="_blank"
+            rel="noopener noreferrer"
+            className="btn btn-gold"
+            style={{ flex: 1, justifyContent: 'center', padding: '0.75rem 1.5rem' }}
+          >
+            View on GitHub
+          </a>
+        )}
       </div>
     </div>
   );
@@ -181,7 +196,7 @@ const Projects = () => {
 
       <div className="section-container" style={{ position: 'relative', zIndex: 1 }}>
 
-        {/* ── Header ─────────────────────────────────────────── */}
+        {/* Header */}
         <div style={{ textAlign: 'center', marginBottom: '4rem' }}>
           <p style={{
             fontFamily: "'DM Sans', sans-serif",
@@ -198,7 +213,7 @@ const Projects = () => {
           <div className="section-divider" />
         </div>
 
-        {/* ── Grid ───────────────────────────────────────────── */}
+        {/* Grid */}
         {projects.length > 0 ? (
           <div style={{
             display: 'grid',
@@ -211,7 +226,6 @@ const Projects = () => {
             ))}
           </div>
         ) : (
-          /* Empty state */
           <div style={{
             textAlign: 'center',
             padding: '5rem 2rem',
@@ -220,14 +234,14 @@ const Projects = () => {
             border: '1px dashed var(--lime-border)',
             marginBottom: '3rem',
           }}>
-            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '1rem', opacity: 0.4 }}>◈</span>
+            <span style={{ fontSize: '2.5rem', display: 'block', marginBottom: '1rem', opacity: 0.4 }}>o</span>
             <p style={{ fontFamily: "'DM Sans', sans-serif", color: 'var(--text-muted)', fontSize: '1rem' }}>
-              Projects coming soon…
+              Projects coming soon
             </p>
           </div>
         )}
 
-        {/* ── Bottom CTA ─────────────────────────────────────── */}
+        {/* Bottom CTA */}
         <div style={{
           display: 'flex',
           flexDirection: 'column',
@@ -249,7 +263,15 @@ const Projects = () => {
               rel="noopener noreferrer"
               className="btn btn-outline px-7 py-3 text-sm"
             >
-              Full Portfolio (Notion)
+              Full Portfolio on Notion
+            </a>
+            <a
+              href="https://github.com/NeskoLimo"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="btn btn-gold px-7 py-3 text-sm"
+            >
+              GitHub Profile
             </a>
             <a href="#contact" className="btn btn-primary px-7 py-3 text-sm">
               Discuss a Project
