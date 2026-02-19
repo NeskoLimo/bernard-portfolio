@@ -185,28 +185,6 @@ function Hero() {
           Ready &amp; Available for New Opportunities
         </div>
 
-        {/* Name */}
-        <h1 style={{
-          ...fade(0.2),
-          fontFamily: "'Cormorant Garamond', Georgia, serif",
-          fontSize: 'clamp(3.2rem, 9vw, 6rem)',
-          fontWeight: 700, letterSpacing: '-0.02em',
-          lineHeight: 1.0, color: 'var(--text-primary)', margin: 0,
-        }}>
-          Bernard{' '}
-          <span style={{
-            background: 'linear-gradient(135deg, #F7E7CE 0%, #c9a96e 50%, #F7E7CE 100%)',
-            backgroundSize: '200% auto',
-            WebkitBackgroundClip: 'text',
-            WebkitTextFillColor: 'transparent',
-            backgroundClip: 'text',
-            animation: 'shimmer 3.5s linear infinite',
-            fontStyle: 'italic',
-          }}>
-            Limo
-          </span>
-        </h1>
-
         {/* Typing role */}
         <div style={{ ...fade(0.3), display: 'flex', alignItems: 'center', gap: '0.5rem', minHeight: '2rem' }}>
           <span style={{
