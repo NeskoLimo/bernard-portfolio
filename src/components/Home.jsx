@@ -11,10 +11,10 @@ import Contact        from './Contact';
 
 // Typing animation roles
 const ROLES = [
-  'Business & System Analyst',
-  'Agile & Scrum Practitioner',
+  'Business & System Analysis Pro',
+  'Agile & Scrum ritualist',
   'Process Optimizer',
-  'Technical Service Lead',
+  'Design Thinking Co-Creator and Practitioner',
   'Digital Transformation Champion',
 ];
 
@@ -34,7 +34,7 @@ const FLOATERS = [
 const MONOGRAMS = [
   { label: 'BA',  top: '62%', left: '6%',  color: 'var(--gold)',      delay: '0s'   },
   { label: 'AI',  top: '28%', left: '91%', color: 'var(--lime-main)', delay: '1.2s' },
-  { label: 'SQL', top: '78%', left: '72%', color: 'var(--gold-deep)', delay: '2.4s' },
+  { label: 'PM', top: '78%', left: '72%', color: 'var(--gold-deep)', delay: '2.4s' },
 ];
 
 // Typing hook
