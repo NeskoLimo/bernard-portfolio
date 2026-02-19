@@ -265,10 +265,10 @@ function Hero() {
               {
                 label: 'LinkedIn',
                 href: 'https://www.linkedin.com/in/bernard-limo-77937b138/',
-                bg: 'rgba(10, 102, 194, 0.10)',
-                border: 'rgba(10, 102, 194, 0.35)',
-                color: '#004182',
-                hoverBg: 'rgba(0, 65, 130, 0.18)',
+                bg: 'rgba(255, 255, 255, 0.09)',
+                border: 'rgba(255, 255, 255, 0.28)',
+                color: '#ffffff',
+                hoverBg: 'rgba(255, 255, 255, 0.18)',
               },
               {
                 label: 'Email Me',
