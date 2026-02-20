@@ -213,11 +213,11 @@ function Hero() {
 
         {/* Description */}
         <p style={{
-          ...fade(0.4),
+          ...fade(0.6),
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: 'clamp(0.95rem, 2vw, 1.1rem)',
+          fontSize: 'clamp(2.03rem, 2vw, 1.9.rem)',
           color: 'var(--text-secondary)', lineHeight: 1.8,
-          maxWidth: '600px', margin: 0,
+          maxWidth: '800px', margin: 0,
         }}>
           Bridging business needs and technology solutions across{' '}
           <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Banking</span>,{' '}
