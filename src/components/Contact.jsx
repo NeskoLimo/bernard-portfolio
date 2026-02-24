@@ -76,7 +76,7 @@ const INFO_CARDS = [
   {
     icon: '◈',
     label: 'LinkedIn',
-    value: 'bernard-limo-77937b138',
+    value: 'Bernard (Kones) Limo',
     href: 'https://www.linkedin.com/in/bernard-limo-77937b138/',
     iconColor: '#0a66c2',
   },
