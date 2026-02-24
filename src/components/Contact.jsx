@@ -37,7 +37,7 @@ const CALL_PLATFORMS = [
   },
   {
     label: 'Topmate',
-    href: 'https://topmate.io/kones_limo/1976832',     // ← replace with your Topmate link
+    href: 'https://topmate.io/kones_limo?utm_source=public_profile&utm_campaign=kones_limo',     // ← replace with your Topmate link
     icon: '🗓',
     style: { background: 'var(--bg-elevated)', color: 'var(--text-primary)', border: '1px solid var(--lime-border)' },
     hoverStyle: { borderColor: 'rgba(247,231,206,0.3)', boxShadow: 'var(--shadow-gold)' },
