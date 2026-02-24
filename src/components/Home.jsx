@@ -333,7 +333,7 @@ function Hero() {
             { value: '8+',       label: 'Years Exp.'   },
             { value: '30+',      label: 'Projects'     },
             { value: '5',        label: 'Industries'   },
-            { value: 'Kes 2.2M', label: 'Revenue Gen.' },
+            { value: '> Kes 20M', label: 'Revenue Gen.' },
           ].map(({ value, label }) => (
             <div
               key={label}
