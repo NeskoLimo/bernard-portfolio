@@ -37,7 +37,7 @@ const CALL_PLATFORMS = [
   },
   {
     label: 'Topmate',
-    href: 'https://topmate.io/',     // ← replace with your Topmate link
+    href: 'https://topmate.io/kones_limo/',     // ← replace with your Topmate link
     icon: '🗓',
     style: { background: 'var(--bg-elevated)', color: 'var(--text-primary)', border: '1px solid var(--lime-border)' },
     hoverStyle: { borderColor: 'rgba(247,231,206,0.3)', boxShadow: 'var(--shadow-gold)' },
@@ -47,9 +47,9 @@ const CALL_PLATFORMS = [
 // ── Hire me on platforms ──────────────────────────────────────────────────────
 const HIRE_PLATFORMS = [
   {
-    label: 'Hire on Upwork',
-    href: 'https://www.upwork.com/',  // ← replace with your Upwork profile
-    style: { background: '#14a800', color: '#fff', border: 'none' },
+    label: 'Hire on Turing',
+    href: 'https://matching.turing.com/developer-resume-preview/01492c3092f3204474acfc5e15bc5d29a6b33943070c2b',  // ← replace with your Upwork profile
+    style: { background: '#003366', color: '#fff', border: 'none' },
     hoverStyle: { background: '#18c200', boxShadow: '0 8px 24px rgba(20,168,0,0.35)' },
     icon: 'UP',
     iconStyle: { fontWeight: 900, fontSize: '0.8rem' },
@@ -344,7 +344,7 @@ const Contact = () => {
               lineHeight: 1.8,
             }}>
               I'm a Business Analyst with a track record of delivering measurable
-              outcomes across banking, insurance, and healthcare. Open to full-time
+              outcomes across Banking, Insurance, and Healthcare. Open to full-time
               roles, contract engagements, and consulting projects.
             </p>
 
