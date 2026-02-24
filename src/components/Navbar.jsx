@@ -1,183 +1,237 @@
 // src/components/Navbar.jsx
+// ── Education nav item added between Projects and Blog ────────────────────────
 import React, { useState, useEffect } from 'react';
 
+const NAV_ITEMS = [
+  { label: 'Home',           href: '#home'          },
+  { label: 'About',          href: '#about'         },
+  { label: 'Skills',         href: '#skills'        },
+  { label: 'Certifications', href: '#certifications'},
+  { label: 'Projects',       href: '#projects'      },
+  { label: 'Education',      href: '#education'     }, // ← NEW
+  { label: 'Blog',           href: '#blog'          },
+  { label: 'Contact',        href: '#contact'       },
+];
+
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [activeSection, setActiveSection] = useState('home');
+  const [scrolled,  setScrolled]  = useState(false);
+  const [active,    setActive]    = useState('home');
+  const [menuOpen,  setMenuOpen]  = useState(false);
 
-  const navLinks = [
-    { name: 'HOME', href: '#home' },
-    { name: 'ABOUT', href: '#about' },
-    { name: 'SKILLS', href: '#skills' },
-    { name: 'CERTIFICATIONS', href: '#certifications' },
-    { name: 'PROJECTS', href: '#projects' },
-    { name: 'BLOG', href: '#blog' },
-    { name: 'CONTACT', href: '#contact' },
-  ];
-
-  // Smooth scroll handler
-  const scrollToSection = (e, href) => {
-    e.preventDefault();
-    const targetId = href.replace('#', '');
-    const element = document.getElementById(targetId);
-    if (element) {
-      element.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-    setIsOpen(false); // Close mobile menu
-  };
-
-  // Keyboard navigation - Close menu on Escape
+  // Shrink navbar on scroll
   useEffect(() => {
-    const handleEscape = (e) => {
-      if (e.key === 'Escape' && isOpen) {
-        setIsOpen(false);
-      }
-    };
-    
-    if (isOpen) {
-      document.addEventListener('keydown', handleEscape);
-    }
-    
-    return () => document.removeEventListener('keydown', handleEscape);
-  }, [isOpen]);
+    const onScroll = () => setScrolled(window.scrollY > 40);
+    window.addEventListener('scroll', onScroll, { passive: true });
+    return () => window.removeEventListener('scroll', onScroll);
+  }, []);
 
-  // Active section detection using Intersection Observer
+  // Highlight active section via IntersectionObserver
   useEffect(() => {
+    const sections = NAV_ITEMS.map(({ href }) =>
+      document.querySelector(href)
+    ).filter(Boolean);
+
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
-            setActiveSection(entry.target.id);
+            setActive(entry.target.id);
           }
         });
       },
-      { rootMargin: '-100px 0px -50% 0px', threshold: 0.1 }
+      { rootMargin: '-40% 0px -55% 0px' }
     );
 
-    navLinks.forEach((link) => {
-      const section = document.getElementById(link.href.replace('#', ''));
-      if (section) observer.observe(section);
-    });
-
+    sections.forEach((s) => observer.observe(s));
     return () => observer.disconnect();
   }, []);
 
+  const handleNavClick = (href) => {
+    setMenuOpen(false);
+    // smooth scroll fallback for older browsers
+    const el = document.querySelector(href);
+    if (el) el.scrollIntoView({ behavior: 'smooth' });
+  };
+
   return (
-    <nav className="fixed top-0 left-0 right-0 z-50 bg-slate-950/95 backdrop-blur-lg border-b border-gold/30 shadow-lg">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 md:px-8 py-4">
-        <div className="flex items-center justify-between">
-          {/* Logo / Name */}
-          <a
-            href="#home"
-            onClick={(e) => scrollToSection(e, '#home')}
-            className="flex items-center gap-2 sm:gap-3 focus:outline-none focus:ring-2 focus:ring-gold rounded-lg px-2 py-1"
-          >
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-lime-600 to-lime-400 flex items-center justify-center text-slate-950 font-bold text-xl shadow-gold-glow flex-shrink-0">
-              BL
-            </div>
-            <span className="text-lg sm:text-xl md:text-2xl font-bold text-white tracking-tight">
-              Bernard Limo
-            </span>
-          </a>
-
-          {/* Desktop Menu */}
-          <div className="hidden md:flex items-center space-x-8 lg:space-x-10">
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className={`nav-link text-sm lg:text-base font-medium uppercase tracking-wider transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold rounded px-2 py-1 ${
-                  activeSection === link.href.replace('#', '')
-                    ? 'text-gold font-semibold border-b-2 border-gold pb-1'
-                    : 'text-slate-300 hover:text-gold'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
-
-            {/* Hire Me Button */}
-            <a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, '#contact')}
-              className="btn btn-gold text-sm lg:text-base px-6 py-2.5 uppercase tracking-wider font-semibold shadow-gold-glow hover:shadow-gold-glow-lg transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-gold rounded"
-            >
-              Hire Me
-            </a>
-          </div>
-
-          {/* Mobile Hamburger Menu Button */}
-          <button
-            className="md:hidden text-gold focus:outline-none transition-transform duration-200 hover:scale-110 focus:ring-2 focus:ring-gold rounded p-2"
-            onClick={() => setIsOpen(!isOpen)}
-            aria-label="Toggle navigation menu"
-            aria-expanded={isOpen}
-            aria-controls="mobile-menu"
-          >
-            <svg 
-              className="w-6 h-6 sm:w-8 sm:h-8" 
-              fill="none" 
-              stroke="currentColor" 
-              viewBox="0 0 24 24"
-              aria-hidden="true"
-            >
-              {isOpen ? (
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M6 18L18 6M6 6l12 12" 
-                />
-              ) : (
-                <path 
-                  strokeLinecap="round" 
-                  strokeLinejoin="round" 
-                  strokeWidth={2} 
-                  d="M4 6h16M4 12h16M4 18h16" 
-                />
-              )}
-            </svg>
-          </button>
+    <header
+      className="navbar"
+      style={{
+        position: 'fixed',
+        top: 0, left: 0, right: 0,
+        zIndex: 1000,
+        height: scrolled ? '60px' : '72px',
+        transition: 'height 0.3s ease, box-shadow 0.3s ease',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-between',
+        padding: '0 2rem',
+      }}
+    >
+      {/* ── Logo ────────────────────────────────────────────────── */}
+      <a
+        href="#home"
+        onClick={() => handleNavClick('#home')}
+        style={{
+          display: 'flex', alignItems: 'center', gap: '0.75rem',
+          textDecoration: 'none', flexShrink: 0,
+        }}
+      >
+        <div style={{
+          width: '42px', height: '42px', borderRadius: '50%',
+          background: 'var(--lime-main)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+          fontFamily: "'DM Sans', sans-serif",
+          fontSize: '0.8rem', fontWeight: 800,
+          color: 'var(--bg-base)',
+          letterSpacing: '0.04em',
+          flexShrink: 0,
+          boxShadow: '0 0 16px rgba(74,222,128,0.25)',
+        }}>
+          BL
         </div>
-
-        {/* Mobile Menu */}
-        {isOpen && (
-          <div 
-            id="mobile-menu"
-            className="md:hidden mt-4 pb-6 space-y-2 border-t border-gold/20 pt-4 
-                       animate-in fade-in slide-in-from-top-2 duration-300"
-          >
-            {navLinks.map((link) => (
-              <a
-                key={link.name}
-                href={link.href}
-                onClick={(e) => scrollToSection(e, link.href)}
-                className={`block py-3 px-4 rounded-lg text-base font-medium uppercase tracking-wider 
-                           transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-gold ${
-                  activeSection === link.href.replace('#', '')
-                    ? 'bg-lime-dark/30 text-gold font-semibold'
-                    : 'text-slate-300 hover:bg-slate-800/50 hover:text-gold'
-                }`}
-              >
-                {link.name}
-              </a>
-            ))}
-
-            {/* Hire Me Button in Mobile Menu */}
-            <a
-              href="#contact"
-              onClick={(e) => scrollToSection(e, '#contact')}
-              className="block py-3 px-4 rounded-lg text-base font-semibold uppercase tracking-wider 
-                         bg-gold text-slate-950 hover:bg-gold-dark transition-all duration-200 
-                         shadow-md focus:outline-none focus:ring-2 focus:ring-gold mt-4"
-            >
-              Hire Me
-            </a>
+        <div style={{ lineHeight: 1.2 }}>
+          <div style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '1.1rem', fontWeight: 700,
+            color: 'var(--text-primary)',
+            letterSpacing: '-0.01em',
+          }}>
+            Bernard Limo
           </div>
-        )}
-      </div>
-    </nav>
+          <div style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.65rem', fontWeight: 500,
+            color: 'var(--text-tertiary)',
+            letterSpacing: '0.08em',
+            textTransform: 'uppercase',
+          }}>
+            Business Analyst
+          </div>
+        </div>
+      </a>
+
+      {/* ── Desktop nav ─────────────────────────────────────────── */}
+      <nav
+        style={{
+          display: 'flex',
+          alignItems: 'center',
+          gap: '0.15rem',
+        }}
+        className="desktop-nav"
+      >
+        {NAV_ITEMS.map(({ label, href }) => {
+          const sectionId = href.replace('#', '');
+          const isActive  = active === sectionId;
+          return (
+            <a
+              key={label}
+              href={href}
+              onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
+              className={`nav-link ${isActive ? 'nav-active' : ''}`}
+              style={{ whiteSpace: 'nowrap' }}
+            >
+              {label}
+            </a>
+          );
+        })}
+      </nav>
+
+      {/* ── Hire Me CTA ─────────────────────────────────────────── */}
+      <a
+        href="#contact"
+        onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
+        className="btn btn-primary btn-sm"
+        style={{
+          flexShrink: 0,
+          marginLeft: '1rem',
+          display: 'flex',
+        }}
+      >
+        Hire Me
+      </a>
+
+      {/* ── Mobile hamburger ────────────────────────────────────── */}
+      <button
+        className="mobile-menu-btn"
+        onClick={() => setMenuOpen((o) => !o)}
+        aria-label="Toggle menu"
+        style={{
+          display: 'none',    /* shown via CSS media query below */
+          background: 'none',
+          border: '1px solid var(--lime-border)',
+          borderRadius: 'var(--r-sm)',
+          padding: '0.4rem 0.6rem',
+          cursor: 'pointer',
+          color: 'var(--text-secondary)',
+          fontSize: '1.2rem',
+          marginLeft: '1rem',
+        }}
+      >
+        {menuOpen ? '✕' : '☰'}
+      </button>
+
+      {/* ── Mobile dropdown ─────────────────────────────────────── */}
+      {menuOpen && (
+        <div style={{
+          position: 'absolute',
+          top: '100%', left: 0, right: 0,
+          background: 'rgba(8,15,8,0.97)',
+          backdropFilter: 'blur(20px)',
+          borderBottom: '1px solid var(--lime-border)',
+          padding: '1rem 2rem 1.5rem',
+          display: 'flex',
+          flexDirection: 'column',
+          gap: '0.25rem',
+          boxShadow: 'var(--shadow-lg)',
+        }}>
+          {NAV_ITEMS.map(({ label, href }) => {
+            const sectionId = href.replace('#', '');
+            const isActive  = active === sectionId;
+            return (
+              <a
+                key={label}
+                href={href}
+                onClick={(e) => { e.preventDefault(); handleNavClick(href); }}
+                style={{
+                  fontFamily: "'DM Sans', sans-serif",
+                  fontSize: '0.9rem',
+                  fontWeight: isActive ? 700 : 500,
+                  color: isActive ? 'var(--gold)' : 'var(--text-secondary)',
+                  padding: '0.65rem 0.75rem',
+                  borderRadius: 'var(--r-sm)',
+                  background: isActive ? 'var(--gold-subtle)' : 'transparent',
+                  textDecoration: 'none',
+                  letterSpacing: '0.06em',
+                  textTransform: 'uppercase',
+                  transition: 'all 0.2s ease',
+                }}
+              >
+                {label}
+              </a>
+            );
+          })}
+          <a
+            href="#contact"
+            onClick={(e) => { e.preventDefault(); handleNavClick('#contact'); }}
+            className="btn btn-primary"
+            style={{ marginTop: '0.75rem', justifyContent: 'center' }}
+          >
+            Hire Me
+          </a>
+        </div>
+      )}
+
+      <style>{`
+        @media (max-width: 900px) {
+          .desktop-nav { display: none !important; }
+          .mobile-menu-btn { display: flex !important; }
+        }
+        @media (max-width: 480px) {
+          header { padding: 0 1.25rem !important; }
+        }
+      `}</style>
+    </header>
   );
 };
 
