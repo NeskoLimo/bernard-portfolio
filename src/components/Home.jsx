@@ -159,7 +159,7 @@ function Hero() {
         </div>
 
         <div className="hero-stats" style={{ ...fade(0.75), display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '1px', width: '100%', maxWidth: '580px', marginTop: '1rem', background: 'var(--lime-border)', borderRadius: '1rem', overflow: 'hidden', border: '1px solid var(--lime-border)' }}>
-          {[{ value: '8+', label: 'Years Exp.' }, { value: '30+', label: 'Projects' }, { value: '5', label: 'Industries' }, { value: 'Kes 2.2M', label: 'Revenue Gen.' }].map(({ value, label }) => (
+          {[{ value: '8+', label: 'Years Exp.' }, { value: '30+', label: 'Projects' }, { value: '4+', label: 'Industries' }, { value: '>Kes 20 M', label: 'Revenue Gen.' }].map(({ value, label }) => (
             <div key={label} style={{ background: 'var(--bg-elevated)', padding: '1rem 0.5rem', textAlign: 'center', transition: 'background 0.2s ease', cursor: 'default' }}
               onMouseEnter={(e) => { e.currentTarget.style.background = 'var(--bg-surface)'; }}
               onMouseLeave={(e) => { e.currentTarget.style.background = 'var(--bg-elevated)'; }}
