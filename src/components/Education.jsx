@@ -3,18 +3,18 @@ import React, { useRef, useEffect, useState } from 'react';
 
 const education = [
   {
-    degree: 'Bachelor of Commerce (B.Com)',
-    institution: 'University of Nairobi',
+    degree: 'Bachelor of Business Information Technology (BBIT)',
+    institution: 'Multimedia University of Kenya',
     location: 'Nairobi, Kenya',
-    period: '2012 – 2016',
-    description: 'Focused on business administration, financial accounting, and organisational management.',
+    period: '2012 – 2015',
+    description: 'Focused on bridging the gap between technical execution and business strategy to drive digital innovation and achieve operational efficiency.',
   },
   {
-    degree: 'Diploma in Business Analysis',
-    institution: 'KCA University',
+    degree: 'MSc in Project Management',
+    institution: 'JKUAT',
     location: 'Nairobi, Kenya',
-    period: '2017 – 2018',
-    description: 'Specialised training in requirements engineering, process modelling, and stakeholder management.',
+    period: '2025 – To be awarded',
+    description: 'An advanced program focused on the strategic alignment of projects with corporate goals, emphasizing rigorous Monitoring & Evaluation (M&E) and standardized project governance frameworks.',
   },
   // ── Add or edit entries above as needed ──────────────────────
 ];
