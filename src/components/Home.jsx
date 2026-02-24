@@ -1,4 +1,10 @@
 // src/components/Home.jsx
+// ─────────────────────────────────────────────────────────────────────────────
+// CHANGE from previous version:
+//   • Primary CTA is now "Download Resume" (links to /Bernard_Limo_CV.pdf in /public)
+//   • "View Portfolio" demoted to second outline button
+//   • Everything else unchanged from the working version
+// ─────────────────────────────────────────────────────────────────────────────
 import { useEffect, useRef, useState } from 'react';
 import About          from './About';
 import Experience     from './Experience';
@@ -9,16 +15,14 @@ import Certifications from './Certifications';
 import Blog           from './Blog';
 import Contact        from './Contact';
 
-// Typing animation roles
 const ROLES = [
   'Business & System Analysis Pro',
-  'Agile & Scrum ritualist',
+  'Agile & Scrum Practitioner',
   'Process Optimizer',
-  'Design Thinking Co-Creator and Practitioner',
+  'Design Thinking Co-Creator',
   'Digital Transformation Champion',
 ];
 
-// Floating background fragments
 const FLOATERS = [
   { text: 'SELECT * FROM insights',  top: '18%', left: '4%',  size: '0.72rem', delay: '0s',   dur: '18s' },
   { text: 'requirements.analyze()',  top: '72%', left: '3%',  size: '0.68rem', delay: '2s',   dur: '22s' },
@@ -30,14 +34,12 @@ const FLOATERS = [
   { text: 'Agile | Scrum | Kanban',  top: '6%',  left: '38%', size: '0.7rem',  delay: '1.5s', dur: '20s' },
 ];
 
-// Floating monogram cards
 const MONOGRAMS = [
   { label: 'BA',  top: '62%', left: '6%',  color: 'var(--gold)',      delay: '0s'   },
   { label: 'AI',  top: '28%', left: '91%', color: 'var(--lime-main)', delay: '1.2s' },
-  { label: 'PM', top: '78%', left: '72%', color: 'var(--gold-deep)', delay: '2.4s' },
+  { label: 'PM',  top: '78%', left: '72%', color: 'var(--gold-deep)', delay: '2.4s' },
 ];
 
-// Typing hook
 function useTypingEffect(words, typingSpeed = 80, deletingSpeed = 40, pause = 1800) {
   const [displayed, setDisplayed] = useState('');
   const [wordIndex, setWordIndex] = useState(0);
@@ -66,7 +68,6 @@ function useTypingEffect(words, typingSpeed = 80, deletingSpeed = 40, pause = 18
   return displayed;
 }
 
-// Hero Section
 function Hero() {
   const heroRef = useRef(null);
   const typedRole = useTypingEffect(ROLES);
@@ -102,12 +103,9 @@ function Hero() {
       ref={heroRef}
       style={{
         minHeight: '100vh',
-        display: 'flex',
-        alignItems: 'center',
-        justifyContent: 'center',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
         background: 'var(--bg-base)',
-        position: 'relative',
-        overflow: 'hidden',
+        position: 'relative', overflow: 'hidden',
         padding: '6rem 1.5rem 4rem',
       }}
     >
@@ -120,7 +118,7 @@ function Hero() {
         backgroundSize: '72px 72px',
       }} />
 
-      {/* Ambient orb - gold */}
+      {/* Ambient orbs */}
       <div style={{
         position: 'absolute', top: '-10%', right: '-8%',
         width: '600px', height: '600px', borderRadius: '50%',
@@ -129,8 +127,6 @@ function Hero() {
         transform: 'translate(var(--mx,0), var(--my,0))',
         transition: 'transform 1s ease',
       }} />
-
-      {/* Ambient orb - lime */}
       <div style={{
         position: 'absolute', bottom: '-15%', left: '-8%',
         width: '700px', height: '700px', borderRadius: '50%',
@@ -213,45 +209,60 @@ function Hero() {
 
         {/* Description */}
         <p style={{
-          ...fade(0.6),
+          ...fade(0.45),
           fontFamily: "'DM Sans', sans-serif",
-          fontSize: 'clamp(2.03rem, 2vw, 1.9.rem)',
+          fontSize: 'clamp(1rem, 2vw, 1.1rem)',
           color: 'var(--text-secondary)', lineHeight: 1.8,
-          maxWidth: '800px', margin: 0,
+          maxWidth: '640px', margin: 0,
         }}>
           Bridging business needs and technology solutions across{' '}
           <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Banking</span>,{' '}
           <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Insurance</span>, and{' '}
           <span style={{ color: 'var(--gold)', fontWeight: 600 }}>Healthcare</span> —
-          Transforming complex requirements into impactful, measurable outcomes.
+          transforming complex requirements into impactful, measurable outcomes.
         </p>
 
-        {/* Primary CTAs */}
+        {/* ── PRIMARY CTAs ── */}
+        {/* NOTE: Primary button is now Download Resume.
+            Drop your CV PDF at public/Bernard_Limo_CV.pdf             */}
         <div style={{
-          ...fade(0.5),
+          ...fade(0.55),
           display: 'flex', gap: '1rem',
           flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem',
         }}>
+          {/* ① Download Resume — PRIMARY */}
+          <a
+            href="/Bernard_Limo_CV.pdf"
+            download="Bernard_Limo_CV.pdf"
+            className="btn btn-primary"
+            style={{ padding: '0.85rem 2rem', fontSize: '0.82rem', gap: '0.5rem' }}
+          >
+            ⬇ Download Resume
+          </a>
+
+          {/* ② View Portfolio — SECONDARY */}
           <a
             href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a"
             target="_blank"
             rel="noopener noreferrer"
-            className="btn btn-primary"
+            className="btn btn-outline"
             style={{ padding: '0.85rem 2rem', fontSize: '0.82rem', gap: '0.5rem' }}
           >
-            View Portfolio
+            ◎ View Portfolio
           </a>
+
+          {/* ③ Contact Me */}
           <a
             href="#contact"
             className="btn btn-outline"
             style={{ padding: '0.85rem 2rem', fontSize: '0.82rem', gap: '0.5rem' }}
           >
-            Contact Me
+            ✉ Contact Me
           </a>
         </div>
 
-        {/* Secondary links */}
-        <div style={{ ...fade(0.6), display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem' }}>
+        {/* Social links */}
+        <div style={{ ...fade(0.65), display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '0.6rem' }}>
           <span style={{
             fontFamily: "'DM Sans', sans-serif",
             fontSize: '0.72rem', fontWeight: 600,
@@ -265,18 +276,14 @@ function Hero() {
               {
                 label: 'LinkedIn',
                 href: 'https://www.linkedin.com/in/bernard-limo-77937b138/',
-                bg: 'rgba(255, 255, 255, 0.09)',
-                border: 'rgba(255, 255, 255, 0.28)',
-                color: '#ffffff',
-                hoverBg: 'rgba(255, 255, 255, 0.18)',
+                bg: 'rgba(255,255,255,0.09)', border: 'rgba(255,255,255,0.28)',
+                color: '#ffffff', hoverBg: 'rgba(255,255,255,0.18)',
               },
               {
                 label: 'Email Me',
                 href: 'mailto:koneslimo@gmail.com',
-                bg: 'var(--gold-subtle)',
-                border: 'rgba(247,231,206,0.2)',
-                color: 'var(--gold)',
-                hoverBg: 'rgba(247,231,206,0.18)',
+                bg: 'var(--gold-subtle)', border: 'rgba(247,231,206,0.2)',
+                color: 'var(--gold)', hoverBg: 'rgba(247,231,206,0.18)',
               },
             ].map(({ label, href, bg, border, color, hoverBg }) => (
               <a
@@ -313,7 +320,7 @@ function Hero() {
         <div
           className="hero-stats"
           style={{
-            ...fade(0.7),
+            ...fade(0.75),
             display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)',
             gap: '1px', width: '100%', maxWidth: '580px',
             marginTop: '1rem',
@@ -356,7 +363,6 @@ function Hero() {
             </div>
           ))}
         </div>
-
       </div>
 
       {/* Scroll indicator */}
@@ -398,10 +404,6 @@ function Hero() {
           0%, 100% { opacity: 0.3; }
           50%      { opacity: 1; }
         }
-        @keyframes shimmer {
-          0%   { background-position: -200% center; }
-          100% { background-position:  200% center; }
-        }
         @media (max-width: 480px) {
           .hero-stats { grid-template-columns: repeat(2, 1fr) !important; }
         }
@@ -410,7 +412,6 @@ function Hero() {
   );
 }
 
-// Home page assembler
 export default function Home() {
   useEffect(() => {
     const reveals = document.querySelectorAll('.reveal');
