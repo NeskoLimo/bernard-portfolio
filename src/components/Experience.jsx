@@ -347,7 +347,7 @@ export default function Experience() {
             { value: '8+',  label: 'Years Experience' },
             { value: '4',   label: 'Companies' },
             { value: '5',   label: 'Industries' },
-            { value: 'Kes 2.2M', label: 'Revenue Generated' },
+            { value: '>Kes 20M', label: 'Revenue Generated' },
           ].map(({ value, label }) => (
             <div key={label} style={{
               background: 'var(--bg-elevated)',
