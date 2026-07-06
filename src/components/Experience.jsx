@@ -11,7 +11,7 @@ const experiences = [
     industry: 'Salesforce Consulting · Digital Transformation',
     current: true,
     achievements: [
-      'Engaged as an Senior Business Analyst / Delivery Coordinator supporting Salesforce consulting, implementation, and digital transformation delivery for client engagements coordinated through the PMO.',
+      'Engaged as a Senior Business Analyst / Delivery Coordinator supporting Salesforce consulting, implementation, and digital transformation delivery for client engagements coordinated through the PMO.',
       'Onboarding across delivery governance, reporting rituals, and stakeholder coordination structures, with scope and deliverables aligned to client-facing project schedules.',
     ],
     tags: ['Business Analysis', 'Delivery Coordination', 'Salesforce', 'PMO Governance', 'Digital Transformation'],
