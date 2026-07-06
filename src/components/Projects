@@ -1,0 +1,259 @@
+// src/components/Projects.jsx
+import { useRef, useEffect, useState } from 'react';
+
+const projects = [
+  {
+    id: 1,
+    title: 'Multi-System Integration Project',
+    subtitle: 'HAIS, HealthX, Pensoft, Unisure, E02-Smart',
+    period: 'May 2025',
+    description:
+      'Oversaw integration of five distinct health and insurance platforms, ensuring seamless interoperability and operational efficiency across the ecosystem.',
+    tags: ['System Integration', 'Interoperability', 'HealthTech'],
+    metric: '5 Platforms',
+    metricLabel: 'Unified',
+  },
+  {
+    id: 2,
+    title: 'DEFMIS Project',
+    subtitle: 'MS Navision & Curacel Integration',
+    period: 'Mar 2025',
+    description:
+      'Overseeing integration of MS Navision and Curacel, streamlining operational workflows and improving financial accuracy across health insurance operations.',
+    tags: ['ERP Integration', 'Financial Systems', 'Workflow Automation'],
+    metric: '2 Systems',
+    metricLabel: 'Integrated',
+  },
+  {
+    id: 3,
+    title: 'Telehealth API V1 to V2 Migration',
+    subtitle: 'Payer & Provider Network Migration',
+    period: 'Jul 2024 – Feb 2025',
+    description:
+      'Managed end-to-end migration of Telehealth API, ensuring data privacy compliance and enhanced system performance for seamless healthcare operations across payer and provider networks.',
+    tags: ['API Migration', 'Data Privacy', 'Telehealth'],
+    metric: 'V1 → V2',
+    metricLabel: 'Migration',
+  },
+  {
+    id: 4,
+    title: 'Smart Virtual Access Migration',
+    subtitle: 'Medismart',
+    period: 'Jan – Dec 2023',
+    description:
+      'Led migration of all payers to Virtual Access within Medismart, achieving full member transition through parallel changeover, comprehensive user training, and robust bug tracking.',
+    tags: ['Change Management', 'User Training', 'Migration'],
+    metric: '100%',
+    metricLabel: 'Member Transition',
+  },
+  {
+    id: 5,
+    title: 'CIC MEDIPAL Mobile Health Application',
+    subtitle: 'Mobile Healthcare Solution',
+    period: 'Jan – Dec 2021',
+    description:
+      'Led development and implementation of a user-centric mobile healthcare solution, generating direct revenue and improving patient access to health services.',
+    tags: ['Mobile Health', 'Product Development', 'Revenue Growth'],
+    metric: 'KES 2.2M',
+    metricLabel: 'Revenue Generated',
+  },
+  {
+    id: 6,
+    title: 'Inua Jamii Verification Automation',
+    subtitle: 'Postbank · Bomet County',
+    period: 'Sep 2018 – Mar 2019',
+    description:
+      'Automated verification of Inua Jamii government health stipend beneficiaries, ensuring programme integrity and eliminating fraudulent claims.',
+    tags: ['Automation', 'Government Programme', 'Fraud Prevention'],
+    metric: 'Fraud',
+    metricLabel: 'Eliminated',
+  },
+];
+
+function ProjectCard({ project, index }) {
+  const cardRef = useRef(null);
+  const [visible, setVisible] = useState(false);
+
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      ([entry]) => { if (entry.isIntersecting) setVisible(true); },
+      { threshold: 0.1 }
+    );
+    if (cardRef.current) observer.observe(cardRef.current);
+    return () => observer.disconnect();
+  }, []);
+
+  return (
+    <div
+      ref={cardRef}
+      style={{
+        background: 'var(--bg-elevated)',
+        border: '1px solid var(--lime-border)',
+        borderRadius: '1rem',
+        padding: '1.75rem',
+        display: 'flex',
+        flexDirection: 'column',
+        gap: '1rem',
+        opacity: visible ? 1 : 0,
+        transform: visible ? 'translateY(0)' : 'translateY(24px)',
+        transition: `opacity 0.55s ease ${index * 0.08}s, transform 0.55s ease ${index * 0.08}s, border-color 0.3s ease, box-shadow 0.3s ease`,
+      }}
+      onMouseEnter={(e) => {
+        e.currentTarget.style.borderColor = 'rgba(247,231,206,0.25)';
+        e.currentTarget.style.boxShadow = 'var(--shadow-gold)';
+      }}
+      onMouseLeave={(e) => {
+        e.currentTarget.style.borderColor = 'var(--lime-border)';
+        e.currentTarget.style.boxShadow = 'none';
+      }}
+    >
+      {/* Header row: title + metric badge */}
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', gap: '1rem' }}>
+        <div>
+          <h3 style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: 'clamp(1.05rem, 2.5vw, 1.3rem)',
+            fontWeight: 700,
+            color: 'var(--text-primary)',
+            lineHeight: 1.25,
+            marginBottom: '0.3rem',
+          }}>
+            {project.title}
+          </h3>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.82rem',
+            fontWeight: 600,
+            color: 'var(--gold-deep)',
+            marginBottom: '0.2rem',
+          }}>
+            {project.subtitle}
+          </p>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.75rem',
+            color: 'var(--text-muted)',
+          }}>
+            {project.period}
+          </p>
+        </div>
+
+        <div style={{
+          flexShrink: 0,
+          textAlign: 'center',
+          padding: '0.6rem 0.9rem',
+          borderRadius: '0.75rem',
+          background: 'rgba(247,231,206,0.08)',
+          border: '1px solid rgba(247,231,206,0.2)',
+        }}>
+          <div style={{
+            fontFamily: "'Cormorant Garamond', Georgia, serif",
+            fontSize: '1.15rem',
+            fontWeight: 700,
+            color: 'var(--gold)',
+            lineHeight: 1,
+            whiteSpace: 'nowrap',
+          }}>
+            {project.metric}
+          </div>
+          <div style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.6rem',
+            fontWeight: 600,
+            letterSpacing: '0.06em',
+            textTransform: 'uppercase',
+            color: 'var(--text-muted)',
+            marginTop: '0.2rem',
+            whiteSpace: 'nowrap',
+          }}>
+            {project.metricLabel}
+          </div>
+        </div>
+      </div>
+
+      {/* Description */}
+      <p style={{
+        fontFamily: "'DM Sans', sans-serif",
+        fontSize: '0.88rem',
+        color: 'var(--text-secondary)',
+        lineHeight: 1.7,
+      }}>
+        {project.description}
+      </p>
+
+      {/* Tags */}
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.45rem', marginTop: 'auto' }}>
+        {project.tags.map((tag) => (
+          <span key={tag} style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.7rem',
+            fontWeight: 600,
+            letterSpacing: '0.04em',
+            padding: '0.22rem 0.65rem',
+            borderRadius: '9999px',
+            background: 'rgba(74,222,128,0.07)',
+            border: '1px solid rgba(74,222,128,0.2)',
+            color: 'var(--lime-main)',
+          }}>
+            {tag}
+          </span>
+        ))}
+      </div>
+    </div>
+  );
+}
+
+export default function Projects() {
+  return (
+    <section
+      id="projects"
+      style={{ background: 'var(--bg-base)', position: 'relative', overflow: 'hidden' }}
+    >
+      {/* Decorative orb */}
+      <div style={{
+        position: 'absolute', bottom: '-100px', left: '-100px',
+        width: '460px', height: '460px', borderRadius: '50%',
+        background: 'radial-gradient(circle, rgba(74,222,128,0.05) 0%, transparent 65%)',
+        filter: 'blur(56px)', pointerEvents: 'none',
+      }} />
+
+      <div className="section-container" style={{ position: 'relative', zIndex: 1 }}>
+
+        {/* Header */}
+        <div style={{ textAlign: 'center', marginBottom: '3.5rem' }}>
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '0.75rem', fontWeight: 600,
+            letterSpacing: '0.14em', textTransform: 'uppercase',
+            color: 'var(--gold-deep)', marginBottom: '0.6rem',
+          }}>
+            Proof Points
+          </p>
+          <h2 className="heading-2">Key Projects</h2>
+          <div className="section-divider" />
+          <p style={{
+            fontFamily: "'DM Sans', sans-serif",
+            fontSize: '1rem', color: 'var(--text-secondary)',
+            maxWidth: '540px', margin: '0 auto', lineHeight: 1.75,
+          }}>
+            Signature engagements spanning system integration, API migration, and product delivery across health and insurance platforms.
+          </p>
+        </div>
+
+        {/* Grid */}
+        <div style={{
+          display: 'grid',
+          gridTemplateColumns: 'repeat(auto-fit, minmax(320px, 1fr))',
+          gap: '1.5rem',
+          maxWidth: '1100px',
+          margin: '0 auto',
+        }}>
+          {projects.map((project, index) => (
+            <ProjectCard key={project.id} project={project} index={index} />
+          ))}
+        </div>
+
+      </div>
+    </section>
+  );
+}
