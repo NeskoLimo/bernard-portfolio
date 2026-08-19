@@ -4,8 +4,8 @@ import { useRef, useEffect, useState } from 'react';
 const experiences = [
   {
     id: 1,
-    role: 'Business Analyst / Delivery Coordinator',
-    company: 'Blue Consulting',
+    role: 'Senior Business Analyst & Delivery Coordinator',
+    company: 'Blue Consulting Kenya Limited',
     period: 'Jul 2026 – Present',
     type: 'Consulting',
     industry: 'Salesforce Consulting · Digital Transformation',
@@ -14,11 +14,11 @@ const experiences = [
       'Engaged as a Senior Business Analyst / Delivery Coordinator supporting Salesforce integration, implementation, and digital transformation delivery for client engagements coordinated through the PMO.',
       'Onboarding across delivery governance, reporting rituals, and stakeholder coordination structures, with scope and deliverables aligned to client-facing project schedules.',
     ],
-    tags: ['Business Analysis', 'Delivery Coordination', 'Salesforce', 'PMO Governance', 'Digital Transformation'],
+    tags: ['Business Analysis', 'Delivery Coordination', 'Salesforce', 'PMO Governance', 'Digital Transformation', 'Leadership'],
   },
   {
     id: 2,
-    role: 'Technical Service Lead & Acting Service Delivery Manager',
+    role: 'Technical Service Lead & Service Delivery Manager',
     company: 'Smart Applications International Ltd',
     period: 'May 2025 – May 2026',
     type: 'Full-time',
