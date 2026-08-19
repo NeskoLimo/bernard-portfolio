@@ -137,7 +137,7 @@ function Hero() {
         </p>
 
         <div style={{ ...fade(0.55), display: 'flex', gap: '1rem', flexWrap: 'wrap', justifyContent: 'center', marginTop: '0.5rem' }}>
-          <a href="/Bernard_Limo_CV.pdf" download="Bernard_Limo_CV.pdf" className="btn btn-primary" style={{ padding: '0.85rem 2rem', fontSize: '0.82rem' }}>⬇ Download Resume</a>
+          <a href="/Bernard_Limo_ATS_Updated.pdf" download="Bernard_Limo_ATS_Updated.pdf" className="btn btn-primary" style={{ padding: '0.85rem 2rem', fontSize: '0.82rem' }}>⬇ Download Resume</a>
           <a href="https://cool-pail-cb0.notion.site/Bernard-Limo-Business-Analyst-Portfolio-305ca37c0bf58030a258c03d55d25c7a" target="_blank" rel="noopener noreferrer" className="btn btn-outline" style={{ padding: '0.85rem 2rem', fontSize: '0.82rem' }}>◎ View Portfolio</a>
           <a href="#contact" className="btn btn-outline" style={{ padding: '0.85rem 2rem', fontSize: '0.82rem' }}>✉ Contact Me</a>
         </div>
