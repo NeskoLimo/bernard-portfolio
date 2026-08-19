@@ -12,7 +12,7 @@ import Blog           from './Blog';
 import Contact        from './Contact';
 
 const ROLES = [
-  'Business & System Analysis Pro',
+  'Business & System Analysis Expert',
   'Agile & Scrum Practitioner',
   'Process Optimizer',
   'Design Thinking Co-Creator',
